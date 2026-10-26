@@ -234,6 +234,7 @@
     "store_owner_link_html": "Ești proprietarul magazinului? <a href=\"{{ link }}\">Conectează-te aici</a>",
     "shipping_discount_error": "Reducerile pentru transport sunt afișate pe pagina de efectuare a plății, după ce ai adăugat adresa",
     "discount_code_error": "Codul de reducere nu poate fi aplicat coșului tău de cumpărături",
+    "discount_update_error": "Something went wrong while updating your discounts. Check your connection and try again.",
     "inventory_low_stock": "Stoc redus",
     "inventory_in_stock": "În stoc",
     "inventory_out_of_stock": "Stoc epuizat",
@@ -354,6 +355,17 @@
       "in_cart": "în coș",
       "default_title": "Titlu implicit",
       "sticky_add_to_cart": "Bara de adăugare rapidă în coș"
+    }
+  },
+  "focusable": {
+    "calculator": {
+      "hybrid_hint": "Drag to adjust, or edit the value directly.",
+      "fine_sub": "{{ pct }}% of revenue · ceiling {{ ceiling }}%",
+      "penalty_sub": "ceiling {{ ceiling }}",
+      "roi": "Mitigation cost is {{ pct }}% of your potential exposure.",
+      "currency_format": "€{{ amount }}",
+      "thousands_separator": ",",
+      "decimal_separator": "."
     }
   }
 }

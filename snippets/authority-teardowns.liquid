@@ -1,0 +1,178 @@
+{%- doc -%}
+  Dark "talks & keynotes" grid. Each `talk` block is an article with a 16:9
+  media slot (thumbnail or play glyph placeholder), title, event badge and a
+  text link. The media slot reserves its aspect ratio so lazy thumbnails never shift layout.
+
+  @param {object} section - The authority-teardowns section (settings + blocks)
+{%- enddoc -%}
+
+{%- liquid
+  assign s = section.settings
+  assign heading_id = 'fc-authority-heading-' | append: section.id
+-%}
+
+<section
+  class="fc-section fc-section--deep fc-authority"
+  aria-labelledby="{{ heading_id }}"
+  style="{% render 'spacing-style', settings: s %}"
+>
+  <div class="fc-container">
+    {%- render 'focusable-section-header', eyebrow: s.eyebrow, heading: s.heading, heading_id: heading_id, lede: s.lede -%}
+
+    {%- if section.blocks.size > 0 -%}
+      <ul class="fc-authority__grid" role="list">
+        {%- for block in section.blocks -%}
+          {%- assign b = block.settings -%}
+          <li class="fc-authority__item" {{ block.shopify_attributes }}>
+            <article class="fc-talk-card">
+              <div class="fc-talk-card__media">
+                {%- if b.thumbnail != blank -%}
+                  {{
+                    b.thumbnail
+                    | image_url: width: 800
+                    | image_tag: class: 'fc-talk-card__thumb', alt: '', loading: 'lazy', widths: '400, 600, 800', sizes: '(max-width: 960px) 100vw, 360px'
+                  }}
+                {%- endif -%}
+                <span class="fc-talk-card__play" aria-hidden="true">{%- render 'focusable-icon', icon: 'play' -%}</span>
+              </div>
+              <div class="fc-talk-card__body">
+                <h3 class="fc-talk-card__title">{{ b.title | escape }}</h3>
+                {%- if b.event != blank -%}
+                  <span class="fc-talk-card__badge">{{ b.event | escape }}</span>
+                {%- endif -%}
+                {%- if b.link_label != blank -%}
+                  <div class="fc-talk-card__action">
+                    <a href="{{ b.url | default: '#' }}" class="fc-talk-card__link">
+                      {{ b.link_label | escape }}
+                      {%- render 'focusable-icon', icon: 'arrow', class: 'fc-btn-link__icon' -%}
+                    </a>
+                  </div>
+                {%- endif -%}
+              </div>
+            </article>
+          </li>
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+  </div>
+</section>
+
+{% stylesheet %}
+  .fc-authority {
+    padding-block: var(--padding-block-start, 88px) var(--padding-block-end, 88px);
+  }
+
+  .fc-authority__grid {
+    list-style: none;
+    margin: 48px 0 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .fc-authority__item {
+    display: flex;
+  }
+
+  .fc-talk-card {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .fc-talk-card__media {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    flex-shrink: 0;
+    background: rgba(255, 255, 255, 0.04);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .fc-talk-card__thumb {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .fc-talk-card__play {
+    position: relative;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    background: rgba(15, 23, 42, 0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--fc-white);
+  }
+
+  .fc-talk-card__body {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 22px;
+  }
+
+  .fc-talk-card__title {
+    margin: 0;
+    min-height: 66px;
+    line-height: 1.4;
+    font-size: 15.5px;
+    font-weight: 700;
+    color: var(--fc-white);
+  }
+
+  .fc-talk-card__badge {
+    display: inline-block;
+    align-self: flex-start;
+    margin-top: 10px;
+    padding: 3px 10px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 999px;
+    font-family: var(--fc-font-mono);
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--fc-slate-300);
+  }
+
+  .fc-talk-card__action {
+    margin-top: auto;
+    padding-top: 16px;
+  }
+
+  .fc-talk-card__link {
+    --fc-link-icon-shift: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--fc-slate-300);
+    text-decoration: none;
+    transition: color var(--fc-ease), gap var(--fc-ease);
+  }
+
+  .fc-talk-card__link:hover {
+    --fc-link-icon-shift: 2px;
+    color: var(--fc-white);
+    gap: 10px;
+  }
+
+  @media (max-width: 960px) {
+    .fc-authority__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+{% endstylesheet %}

@@ -1,0 +1,38 @@
+{%- doc -%}
+  Inline SVG icons used across the Focusable landing sections. All icons are
+  decorative (`aria-hidden`); label the surrounding control, not the icon.
+
+  @param {string} icon - One of: arrow, check, play, bracket-tl, bracket-tr, bracket-bl, bracket-br, react
+  @param {number} [px] - Rendered width/height in px (defaults per icon)
+  @param {string} [class] - Extra class names appended to `fc-icon`
+{%- enddoc -%}
+
+{%- liquid
+  assign classes = 'fc-icon'
+  if class != blank
+    assign classes = classes | append: ' ' | append: class
+  endif
+-%}
+
+{%- case icon -%}
+  {%- when 'arrow' -%}
+    {%- assign s = px | default: 14 -%}
+    <svg class="{{ classes }}" width="{{ s }}" height="{{ s }}" viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  {%- when 'check' -%}
+    {%- assign s = px | default: 10 -%}
+    <svg class="{{ classes }}" width="{{ s }}" height="{{ s }}" viewBox="0 0 12 12" fill="none" aria-hidden="true" focusable="false"><path d="M2 6.5L4.5 9L10 3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  {%- when 'play' -%}
+    {%- assign s = px | default: 16 -%}
+    <svg class="{{ classes }}" width="{{ s }}" height="{{ s }}" viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false"><path d="M5 3.5v9l8-4.5-8-4.5z" fill="currentColor"/></svg>
+  {%- when 'bracket-tl' -%}
+    <svg class="{{ classes }}" viewBox="0 0 30 30" fill="none" aria-hidden="true" focusable="false"><path d="M6 14V6h8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  {%- when 'bracket-tr' -%}
+    <svg class="{{ classes }}" viewBox="0 0 30 30" fill="none" aria-hidden="true" focusable="false"><path d="M24 14V6h-8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  {%- when 'bracket-bl' -%}
+    <svg class="{{ classes }}" viewBox="0 0 30 30" fill="none" aria-hidden="true" focusable="false"><path d="M6 16v8h8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  {%- when 'bracket-br' -%}
+    <svg class="{{ classes }}" viewBox="0 0 30 30" fill="none" aria-hidden="true" focusable="false"><path d="M24 16v8h-8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  {%- when 'react' -%}
+    {%- assign s = px | default: 20 -%}
+    <svg class="{{ classes }}" width="{{ s }}" height="{{ s }}" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="2" fill="currentColor"/><ellipse cx="12" cy="12" rx="10" ry="4" stroke="currentColor" stroke-width="1.3"/><ellipse cx="12" cy="12" rx="10" ry="4" stroke="currentColor" stroke-width="1.3" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="10" ry="4" stroke="currentColor" stroke-width="1.3" transform="rotate(120 12 12)"/></svg>
+{%- endcase -%}

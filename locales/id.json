@@ -234,6 +234,7 @@
       "other": "Tersisa {{ count }}"
     },
     "discount_code_error": "Kode diskon tidak dapat diterapkan ke keranjang Anda",
+    "discount_update_error": "Something went wrong while updating your discounts. Check your connection and try again.",
     "shipping_policy": "Biaya pengiriman dihitung saat checkout.",
     "shipping_discount_error": "Diskon biaya pengiriman akan ditampilkan saat checkout setelah menambahkan alamat",
     "powered_by": "Toko ini didukung oleh",
@@ -347,6 +348,17 @@
       "post": "Posting komentar",
       "success_moderated": "Komentar diposting, menunggu moderasi",
       "success": "Komentar diposting"
+    }
+  },
+  "focusable": {
+    "calculator": {
+      "hybrid_hint": "Drag to adjust, or edit the value directly.",
+      "fine_sub": "{{ pct }}% of revenue · ceiling {{ ceiling }}%",
+      "penalty_sub": "ceiling {{ ceiling }}",
+      "roi": "Mitigation cost is {{ pct }}% of your potential exposure.",
+      "currency_format": "€{{ amount }}",
+      "thousands_separator": ",",
+      "decimal_separator": "."
     }
   }
 }

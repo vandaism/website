@@ -177,6 +177,7 @@
     "discount_code": "Discount code",
     "shipping_discount_error": "Shipping discounts are shown at checkout after adding an address",
     "discount_code_error": "Discount code cannot be applied to your cart",
+    "discount_update_error": "Something went wrong while updating your discounts. Check your connection and try again.",
     "discounts": "Discounts",
     "duties_and_taxes_included": "Duties and taxes included.",
     "duties_and_taxes_included_shipping_at_checkout_with_policy_html": "Duties and taxes included. Discounts and <a href=\"{{ link }}\">shipping</a> calculated at checkout.",
@@ -366,6 +367,17 @@
       "in_cart": "in cart",
       "default_title": "Default Title",
       "sticky_add_to_cart": "Quick add to cart bar"
+    }
+  },
+  "focusable": {
+    "calculator": {
+      "hybrid_hint": "Drag to adjust, or edit the value directly.",
+      "fine_sub": "{{ pct }}% of revenue · ceiling {{ ceiling }}%",
+      "penalty_sub": "ceiling {{ ceiling }}",
+      "roi": "Mitigation cost is {{ pct }}% of your potential exposure.",
+      "currency_format": "€{{ amount }}",
+      "thousands_separator": ",",
+      "decimal_separator": "."
     }
   }
 }

@@ -239,6 +239,7 @@
       "many": "{{ count }} rimasto"
     },
     "discount_code_error": "Il codice sconto non può essere applicato al tuo carrello",
+    "discount_update_error": "Something went wrong while updating your discounts. Check your connection and try again.",
     "shipping_policy": "Spese di spedizione calcolate al check-out.",
     "powered_by": "Questo negozio sarà ospitato su",
     "store_owner_link_html": "Il negozio è di tua proprietà? <a href=\"{{ link }}\">Accedi qui</a>",
@@ -354,6 +355,17 @@
       "in_cart": "nel carrello",
       "default_title": "Titolo predefinito",
       "sticky_add_to_cart": "Barra per l'aggiunta rapida al carrello"
+    }
+  },
+  "focusable": {
+    "calculator": {
+      "hybrid_hint": "Drag to adjust, or edit the value directly.",
+      "fine_sub": "{{ pct }}% of revenue · ceiling {{ ceiling }}%",
+      "penalty_sub": "ceiling {{ ceiling }}",
+      "roi": "Mitigation cost is {{ pct }}% of your potential exposure.",
+      "currency_format": "€{{ amount }}",
+      "thousands_separator": ",",
+      "decimal_separator": "."
     }
   }
 }

@@ -1,0 +1,653 @@
+{%- doc -%}
+  EAA risk-exposure calculator. Renders the `<risk-calculator>` custom element
+  (assets/risk-calculator.js) around fully functional native inputs.
+
+  The default outputs are computed here in Liquid with the same formula the
+  component uses, so the tile shows correct numbers before JS runs (or without it).
+  Formula constants travel to the component as `data-*` attributes; translated
+  output templates travel as `data-text-*` with `[placeholder]` tokens.
+
+  @param {object} section - The risk-calculator section (settings + posture blocks)
+{%- enddoc -%}
+
+{%- liquid
+  assign s = section.settings
+  assign sid = section.id
+  assign heading_id = 'fc-calc-heading-' | append: sid
+
+  assign thousands = 'focusable.calculator.thousands_separator' | t
+  assign decimal = 'focusable.calculator.decimal_separator' | t
+
+  # ---- Constants (schema stores percentages as whole numbers) ----
+  assign fine_pct_min = s.fine_pct_min | times: 1.0 | divided_by: 100
+  assign fine_pct_max = s.fine_pct_max | times: 1.0 | divided_by: 100
+  assign cross_border_max = s.cross_border_max | times: 1.0 | divided_by: 100
+  assign penalty_floor = s.penalty_floor | times: 1.0
+  assign penalty_ceiling = s.penalty_ceiling | times: 1.0
+
+  # ---- Default posture = first block ----
+  assign posture_default_label = ''
+  assign posture_discount = 0.0
+  if section.blocks.size > 0
+    assign first_posture = section.blocks | first
+    assign posture_default_label = first_posture.settings.label
+    assign posture_discount = first_posture.settings.discount | times: 1.0 | divided_by: 100
+  endif
+
+  # ---- Same formula as recalculate() in risk-calculator.js ----
+  assign pages_span = s.pages_max | minus: s.pages_min
+  assign markets_span = s.markets_max | minus: s.markets_min
+  assign complex_fraction = 0.0
+  if pages_span > 0
+    assign complex_fraction = s.pages_default | minus: s.pages_min | times: 1.0 | divided_by: pages_span
+  endif
+  assign market_fraction = 0.0
+  if markets_span > 0
+    assign market_fraction = s.markets_default | minus: s.markets_min | times: 1.0 | divided_by: markets_span
+  endif
+  assign cross_border_multiplier = market_fraction | times: cross_border_max | plus: 1.0
+  assign posture_multiplier = 1.0 | minus: posture_discount
+
+  assign revenue = s.revenue_default | times: 1.0
+  assign fine_pct_range = fine_pct_max | minus: fine_pct_min
+  assign fine_pct_base = complex_fraction | times: fine_pct_range | plus: fine_pct_min
+  assign fine_cap = revenue | times: fine_pct_max
+  assign fine = revenue | times: fine_pct_base | times: cross_border_multiplier | times: posture_multiplier | at_most: fine_cap
+  assign fine_pct_effective = 0.0
+  if revenue > 0
+    assign fine_pct_effective = fine | divided_by: revenue
+  endif
+  assign fine_gauge = fine_pct_effective | divided_by: fine_pct_max | times: 100 | at_most: 100
+
+  assign penalty_range = penalty_ceiling | minus: penalty_floor
+  assign penalty_base = complex_fraction | times: penalty_range | plus: penalty_floor
+  assign penalty = penalty_base | times: cross_border_multiplier | times: posture_multiplier | at_most: penalty_ceiling
+  assign penalty_gauge = penalty | divided_by: penalty_ceiling | times: 100 | at_most: 100
+
+  assign roi_pct = 0.0
+  if penalty > 0
+    assign roi_pct = s.mitigation_cost | times: 100.0 | divided_by: penalty
+  endif
+
+  # ---- Formatted strings ----
+  capture revenue_fmt
+    render 'focusable-format-number', value: revenue, separator: thousands
+  endcapture
+  capture fine_fmt
+    render 'focusable-format-number', value: fine, separator: thousands
+  endcapture
+  capture penalty_fmt
+    render 'focusable-format-number', value: penalty, separator: thousands
+  endcapture
+  capture ceiling_fmt
+    render 'focusable-format-number', value: penalty_ceiling, separator: thousands
+  endcapture
+  assign revenue_display = 'focusable.calculator.currency_format' | t: amount: revenue_fmt
+  assign fine_display = 'focusable.calculator.currency_format' | t: amount: fine_fmt
+  assign penalty_display = 'focusable.calculator.currency_format' | t: amount: penalty_fmt
+  assign ceiling_display = 'focusable.calculator.currency_format' | t: amount: ceiling_fmt
+  assign fine_pct_display = fine_pct_effective | times: 100 | round: 1 | append: '' | replace: '.', decimal
+  assign fine_ceiling_display = fine_pct_max | times: 100 | round
+  assign roi_display = roi_pct | round: 2 | append: '' | replace: '.', decimal
+
+  # Placeholder templates handed to JS (translations keep `[pct]` etc. literal)
+  assign tpl_fine_sub = 'focusable.calculator.fine_sub' | t: pct: '[pct]', ceiling: '[ceiling]'
+  assign tpl_penalty_sub = 'focusable.calculator.penalty_sub' | t: ceiling: '[ceiling]'
+  assign tpl_roi = 'focusable.calculator.roi' | t: pct: '[pct]'
+-%}
+
+<section
+  class="fc-section fc-section--dark fc-calc"
+  aria-labelledby="{{ heading_id }}"
+  style="{% render 'spacing-style', settings: s %}"
+>
+  <div class="fc-container">
+    {%- render 'focusable-section-header', eyebrow: s.eyebrow, heading: s.heading, heading_id: heading_id, lede: s.lede -%}
+
+    <risk-calculator
+      class="fc-calc__panel"
+      data-fine-pct-min="{{ fine_pct_min }}"
+      data-fine-pct-max="{{ fine_pct_max }}"
+      data-penalty-floor="{{ s.penalty_floor }}"
+      data-penalty-ceiling="{{ s.penalty_ceiling }}"
+      data-cross-border-max="{{ cross_border_max }}"
+      data-mitigation-cost="{{ s.mitigation_cost }}"
+      data-text-fine-sub="{{ tpl_fine_sub | escape }}"
+      data-text-penalty-sub="{{ tpl_penalty_sub | escape }}"
+      data-text-roi="{{ tpl_roi | escape }}"
+    >
+      <div class="fc-calc__inputs">
+        {%- # Revenue -%}
+        <div class="fc-hybrid">
+          <div class="fc-hybrid__head">
+            <label class="fc-hybrid__label" for="fc-rev-slider-{{ sid }}" id="fc-rev-label-{{ sid }}">{{ s.revenue_label | escape }}</label>
+            <span class="fc-hybrid__value">
+              <input
+                type="text"
+                inputmode="numeric"
+                class="fc-hybrid__input fc-hybrid__input--wide fc-tnum"
+                id="fc-rev-input-{{ sid }}"
+                ref="revenueInput"
+                value="{{ revenue_display | escape }}"
+                aria-labelledby="fc-rev-label-{{ sid }}"
+                aria-describedby="fc-rev-desc-{{ sid }}"
+                on:focus="/onValueFocus/revenue"
+                on:blur="/onValueBlur/revenue"
+                on:keydown="/onValueKeydown/revenue"
+              >
+            </span>
+          </div>
+          <input
+            type="range"
+            class="fc-range"
+            id="fc-rev-slider-{{ sid }}"
+            ref="revenueSlider"
+            min="{{ s.revenue_min }}"
+            max="{{ s.revenue_max }}"
+            step="{{ s.revenue_step }}"
+            value="{{ s.revenue_default }}"
+            aria-describedby="fc-rev-desc-{{ sid }}"
+            on:input="/onSliderInput/revenue"
+          >
+          <span id="fc-rev-desc-{{ sid }}" class="fc-visually-hidden">{{ 'focusable.calculator.hybrid_hint' | t }}</span>
+        </div>
+
+        {%- # Pages -%}
+        <div class="fc-hybrid">
+          <div class="fc-hybrid__head">
+            <label class="fc-hybrid__label" for="fc-pages-slider-{{ sid }}" id="fc-pages-label-{{ sid }}">{{ s.pages_label | escape }}</label>
+            <span class="fc-hybrid__value">~<input
+                type="text"
+                inputmode="numeric"
+                class="fc-hybrid__input fc-hybrid__input--narrow fc-tnum"
+                id="fc-pages-input-{{ sid }}"
+                ref="pagesInput"
+                value="{{ s.pages_default }}"
+                aria-labelledby="fc-pages-label-{{ sid }}"
+                aria-describedby="fc-pages-desc-{{ sid }}"
+                on:focus="/onValueFocus/pages"
+                on:blur="/onValueBlur/pages"
+                on:keydown="/onValueKeydown/pages"
+              > {{ s.pages_unit | escape }}</span>
+          </div>
+          <input
+            type="range"
+            class="fc-range"
+            id="fc-pages-slider-{{ sid }}"
+            ref="pagesSlider"
+            min="{{ s.pages_min }}"
+            max="{{ s.pages_max }}"
+            step="{{ s.pages_step }}"
+            value="{{ s.pages_default }}"
+            aria-describedby="fc-pages-desc-{{ sid }}"
+            on:input="/onSliderInput/pages"
+          >
+          <span id="fc-pages-desc-{{ sid }}" class="fc-visually-hidden">{{ 'focusable.calculator.hybrid_hint' | t }}</span>
+        </div>
+
+        {%- # Markets -%}
+        <div class="fc-hybrid">
+          <div class="fc-hybrid__head">
+            <label class="fc-hybrid__label" for="fc-markets-slider-{{ sid }}" id="fc-markets-label-{{ sid }}">{{ s.markets_label | escape }}</label>
+            <span class="fc-hybrid__value"><input
+                type="text"
+                inputmode="numeric"
+                class="fc-hybrid__input fc-hybrid__input--tiny fc-tnum"
+                id="fc-markets-input-{{ sid }}"
+                ref="marketsInput"
+                value="{{ s.markets_default }}"
+                aria-labelledby="fc-markets-label-{{ sid }}"
+                aria-describedby="fc-markets-desc-{{ sid }}"
+                on:focus="/onValueFocus/markets"
+                on:blur="/onValueBlur/markets"
+                on:keydown="/onValueKeydown/markets"
+              > {{ s.markets_unit | escape }}</span>
+          </div>
+          <input
+            type="range"
+            class="fc-range"
+            id="fc-markets-slider-{{ sid }}"
+            ref="marketsSlider"
+            min="{{ s.markets_min }}"
+            max="{{ s.markets_max }}"
+            step="{{ s.markets_step }}"
+            value="{{ s.markets_default }}"
+            aria-describedby="fc-markets-desc-{{ sid }}"
+            on:input="/onSliderInput/markets"
+          >
+          <span id="fc-markets-desc-{{ sid }}" class="fc-visually-hidden">{{ 'focusable.calculator.hybrid_hint' | t }}</span>
+        </div>
+
+        {%- # Posture: native radio group, so it works without JS and gets arrow-key navigation for free -%}
+        {%- if section.blocks.size > 0 -%}
+          <fieldset class="fc-hybrid fc-hybrid--posture">
+            {%- # legend must be the fieldset's first child; it floats left so the value can sit on the same row -%}
+            <legend class="fc-hybrid__label fc-hybrid__label--legend">{{ s.posture_label | escape }}</legend>
+            <div class="fc-hybrid__head fc-hybrid__head--posture">
+              <span class="fc-hybrid__value fc-hybrid__value--static fc-tnum" ref="postureValue">{{ posture_default_label | escape }}</span>
+            </div>
+            <div class="fc-segmented">
+              {%- for block in section.blocks -%}
+                {%- assign discount_fraction = block.settings.discount | times: 1.0 | divided_by: 100 -%}
+                <label class="fc-segmented__option" {{ block.shopify_attributes }}>
+                  <input
+                    type="radio"
+                    class="fc-segmented__input"
+                    name="fc-posture-{{ sid }}"
+                    value="{{ discount_fraction }}"
+                    data-label="{{ block.settings.label | escape }}"
+                    ref="postureInputs[]"
+                    on:change="/onPostureChange"
+                    {% if forloop.first %}checked{% endif %}
+                  >
+                  <span class="fc-segmented__label">{{ block.settings.short_label | escape }}</span>
+                </label>
+              {%- endfor -%}
+            </div>
+          </fieldset>
+        {%- endif -%}
+      </div>
+
+      <div class="fc-calc__outputs" aria-live="polite" aria-atomic="false">
+        <div class="fc-tile">
+          <span class="fc-tile__label">{{ s.fine_label | escape }}</span>
+          <span class="fc-tile__value fc-tnum" ref="fineValue">{{ fine_display }}</span>
+          <span class="fc-tile__sub" ref="fineSub">{{ 'focusable.calculator.fine_sub' | t: pct: fine_pct_display, ceiling: fine_ceiling_display }}</span>
+          <div class="fc-gauge" aria-hidden="true">
+            <div class="fc-gauge__fill" ref="fineGauge" style="--fc-gauge-fill: {{ fine_gauge | round: 2 }}%"></div>
+            <div class="fc-gauge__tick"></div>
+          </div>
+        </div>
+
+        <div class="fc-tile">
+          <span class="fc-tile__label">{{ s.penalty_label | escape }}</span>
+          <span class="fc-tile__value fc-tnum" ref="penaltyValue">{{ penalty_display }}</span>
+          <span class="fc-tile__sub" ref="penaltySub">{{ 'focusable.calculator.penalty_sub' | t: ceiling: ceiling_display }}</span>
+          <div class="fc-gauge" aria-hidden="true">
+            <div class="fc-gauge__fill" ref="penaltyGauge" style="--fc-gauge-fill: {{ penalty_gauge | round: 2 }}%"></div>
+            <div class="fc-gauge__tick"></div>
+          </div>
+
+          {%- if s.cta_label != blank -%}
+            <div class="fc-calc-cta">
+              {%- if s.show_roi -%}
+                <p class="fc-calc-cta__roi fc-tnum" ref="roiAnchor">{{ 'focusable.calculator.roi' | t: pct: roi_display }}</p>
+              {%- endif -%}
+              <div class="fc-calc-cta__glow">
+                <a href="{{ s.cta_url | default: '#' }}" class="fc-btn fc-btn--invert fc-btn--block fc-calc-cta__btn">{{ s.cta_label | escape }}</a>
+              </div>
+              {%- if s.cta_note != blank -%}
+                <p class="fc-btn-note fc-btn-note--center fc-calc-cta__note">{{ s.cta_note | escape }}</p>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+        </div>
+      </div>
+    </risk-calculator>
+  </div>
+</section>
+
+{% stylesheet %}
+  .fc-calc {
+    padding-block: var(--padding-block-start, 88px) var(--padding-block-end, 88px);
+  }
+
+  .fc-visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .fc-calc__panel {
+    margin-top: 44px;
+    padding: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--fc-radius-lg);
+    background: rgba(255, 255, 255, 0.03);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: stretch;
+  }
+
+  .fc-calc__inputs {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .fc-calc__outputs {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  /* ---------- Hybrid slider + editable value ---------- */
+  .fc-hybrid {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    min-width: 0;
+  }
+
+  .fc-hybrid + .fc-hybrid {
+    margin-top: 32px;
+  }
+
+  .fc-hybrid--posture {
+    margin-top: auto;
+  }
+
+  .fc-hybrid__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+
+  .fc-hybrid__label {
+    padding: 0;
+    font-family: var(--fc-font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--fc-slate-300);
+  }
+
+  .fc-hybrid__label--legend {
+    float: left;
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  .fc-hybrid__head--posture {
+    justify-content: flex-end;
+    min-height: 1.5em;
+  }
+
+  .fc-hybrid__value {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 2px;
+    font-family: var(--fc-font-mono);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--fc-white);
+    white-space: nowrap;
+  }
+
+  .fc-hybrid__value--static {
+    text-align: right;
+  }
+
+  /* Looks like text, works like an input */
+  .fc-hybrid__input {
+    appearance: none;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid transparent;
+    border-radius: 0;
+    padding: 2px 0;
+    margin: 0;
+    font: inherit;
+    color: inherit;
+    text-align: right;
+    width: 11ch;
+    min-height: 0;
+  }
+
+  .fc-hybrid__input--wide { width: 11ch; }
+  .fc-hybrid__input--narrow { width: 4ch; }
+  .fc-hybrid__input--tiny { width: 3ch; }
+
+  .fc-hybrid__input:hover {
+    border-bottom-color: var(--fc-slate-600);
+  }
+
+  .fc-hybrid__input:focus-visible {
+    border-bottom-color: var(--fc-white);
+    outline: 2px solid var(--fc-white);
+    outline-offset: 3px;
+    box-shadow: none;
+    border-radius: 2px;
+  }
+
+  /* ---------- Range: 44px touch target, small visible thumb ---------- */
+  .fc-range {
+    -webkit-appearance: none;
+    appearance: none;
+    display: block;
+    width: 100%;
+    height: 44px;
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .fc-range::-webkit-slider-runnable-track {
+    height: 4px;
+    background: rgba(255, 255, 255, 0.25);
+    border-radius: 2px;
+  }
+
+  .fc-range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    margin-top: -20px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--fc-white) 0 7px, transparent 8px);
+    border: none;
+    cursor: pointer;
+  }
+
+  .fc-range::-moz-range-track {
+    height: 4px;
+    background: rgba(255, 255, 255, 0.25);
+    border-radius: 2px;
+  }
+
+  .fc-range::-moz-range-thumb {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--fc-white) 0 7px, transparent 8px);
+    border: none;
+    cursor: pointer;
+  }
+
+  /* Ring is drawn on the thumb instead of the 44px hit box */
+  .fc-range:focus-visible {
+    outline: none;
+    box-shadow: none;
+  }
+
+  .fc-range:focus-visible::-webkit-slider-thumb {
+    box-shadow: 0 0 0 2px var(--fc-slate-900), 0 0 0 4px var(--fc-white);
+  }
+
+  .fc-range:focus-visible::-moz-range-thumb {
+    box-shadow: 0 0 0 2px var(--fc-slate-900), 0 0 0 4px var(--fc-white);
+  }
+
+  /* ---------- Segmented radio group ---------- */
+  .fc-segmented {
+    clear: both;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.02);
+  }
+
+  .fc-segmented__option {
+    flex: 1 1 auto;
+    position: relative;
+    display: flex;
+  }
+
+  .fc-segmented__input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .fc-segmented__label {
+    flex: 1 1 auto;
+    min-height: 44px;
+    padding: 8px 12px;
+    border-radius: var(--fc-radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--fc-font-mono);
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--fc-slate-300);
+    text-align: center;
+    cursor: pointer;
+    transition: background-color var(--fc-ease), color var(--fc-ease);
+  }
+
+  .fc-segmented__label:hover {
+    color: var(--fc-white);
+  }
+
+  /* Sibling combinators are the one unavoidable exception to flat selectors:
+     a hidden native radio can only style its label this way without JS. */
+  .fc-segmented__input:checked + .fc-segmented__label {
+    background: var(--fc-white);
+    color: var(--fc-slate-900);
+    font-weight: 700;
+  }
+
+  .fc-segmented__input:focus-visible + .fc-segmented__label {
+    outline: 2px solid var(--fc-white);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 4px var(--fc-slate-900);
+  }
+
+  /* ---------- Output tiles ---------- */
+  .fc-tile {
+    padding: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.03);
+  }
+
+  .fc-tile__label {
+    display: block;
+    font-family: var(--fc-font-mono);
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--fc-slate-300);
+  }
+
+  .fc-tile__value {
+    display: block;
+    margin-top: 10px;
+    font-family: var(--fc-font-mono);
+    font-size: 1.85rem;
+    font-weight: 700;
+    color: var(--fc-white);
+    letter-spacing: -0.02em;
+  }
+
+  .fc-tile__sub {
+    display: block;
+    margin-top: 4px;
+    font-family: var(--fc-font-mono);
+    font-size: 11px;
+    color: var(--fc-slate-300);
+  }
+
+  .fc-gauge {
+    position: relative;
+    margin-top: 14px;
+    height: 4px;
+    border-radius: 2px;
+    background: rgba(255, 255, 255, 0.12);
+    overflow: visible;
+  }
+
+  .fc-gauge__fill {
+    --fc-gauge-fill: 0%;
+    height: 100%;
+    width: var(--fc-gauge-fill);
+    background: var(--fc-white);
+    border-radius: 2px;
+    transition: width 0.2s ease;
+  }
+
+  .fc-gauge__tick {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    width: 2px;
+    height: 12px;
+    background: var(--fc-slate-300);
+    border-radius: 1px;
+    transform: translate(-1px, -50%);
+  }
+
+  /* ---------- CTA inside the penalty tile ---------- */
+  .fc-calc-cta {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px dashed rgba(255, 255, 255, 0.15);
+  }
+
+  .fc-calc-cta__roi {
+    margin: 0 0 16px;
+    text-align: center;
+    font-family: var(--fc-font-mono);
+    font-size: 12px;
+    color: var(--fc-slate-400); /* 5.2:1 on slate-900 */
+  }
+
+  .fc-calc-cta__glow {
+    position: relative;
+  }
+
+  .fc-calc-cta__glow::before {
+    content: '';
+    position: absolute;
+    inset: -20px;
+    z-index: -1;
+    pointer-events: none;
+    background: radial-gradient(circle at center, rgba(16, 185, 129, 0.14), transparent 70%);
+  }
+
+  .fc-calc-cta__btn {
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.4), 0 10px 24px -8px rgba(255, 255, 255, 0.18);
+  }
+
+  .fc-calc-cta__note {
+    color: var(--fc-slate-300);
+  }
+
+  @media (max-width: 960px) {
+    .fc-calc__panel {
+      grid-template-columns: 1fr;
+      gap: 36px;
+      padding: 28px;
+    }
+  }
+{% endstylesheet %}

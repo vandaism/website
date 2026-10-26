@@ -4,8 +4,12 @@
     class="shopify-design-mode"
   {% endif %}
   lang="{{ request.locale.iso_code }}"
+  dir="{% if request.locale.iso_code == 'ar' or request.locale.iso_code == 'he' or request.locale.iso_code == 'fa' or request.locale.iso_code == 'ur' %}rtl{% else %}ltr{% endif %}"
 >
   <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     {%- if settings.favicon != blank -%}
       <link
         rel="icon"
@@ -14,8 +18,6 @@
       >
     {%- endif -%}
 
-    {% # theme-check-disable RemoteAsset %}
-    {% comment %} This a way to wait for main content to load when navigating to a new page so that the view transitions can work consistently {% endcomment %}
     {% if settings.transition_to_main_product or settings.page_transition_enabled %}
       <link
         rel="expect"
@@ -37,23 +39,26 @@
     {% endif %}
 
     {{ content_for_header }}
-    {% # theme-check-enable RemoteAsset %}
   </head>
 
-  <body class="page-width-{{ settings.page_width }} card-hover-effect-{{ settings.card_hover_effect }}">
+  <body
+    class="page-width-{{ settings.page_width }} card-hover-effect-{{ settings.card_hover_effect }}"
+    itemscope
+    itemtype="https://schema.org/WebPage"
+  >
     {% render 'skip-to-content-link', href: '#MainContent', text: 'accessibility.skip_to_text' %}
-    <div id="header-group">
+
+    <header
+      id="header-group"
+      role="banner"
+      itemscope
+      itemtype="https://schema.org/WPHeader"
+    >
       {% sections 'header-group' %}
-    </div>
+    </header>
 
     <script>
-      // Inline header height and menu style calculations to prevent layout shift
-      // Note: Updates in calculateHeaderGroupHeight(), updateTransparentHeaderOffset() and setHeaderMenuStyle() utilities.js should be kept in sync with this function
       (function setHeaderHeighCustomProperties() {
-        /*
-         * Header calculation functions for maintaining CSS variables
-         * Mimic calculateHeaderGroupHeight() in utilities.js
-         */
         const header = document.querySelector('header-component');
         const headerGroup = document.querySelector('#header-group');
         const hasHeaderSection = headerGroup?.querySelector('.header-section');
@@ -63,7 +68,6 @@
         const headerTopRow = header.querySelector('.header__row--top');
         const headerHeight = header.offsetHeight;
 
-        // Calculate the total height of the header group
         let headerGroupHeight = 0;
         const children = headerGroup.children;
         for (let i = 0; i < children.length; i++) {
@@ -72,12 +76,10 @@
           headerGroupHeight += element.offsetHeight;
         }
 
-        // Check for transparent header special case
         if (header.hasAttribute('transparent') && header.parentElement?.nextElementSibling) {
           headerGroupHeight += headerHeight;
         }
 
-        // Set CSS variables
         document.body.style.setProperty('--header-height', `${headerHeight}px`);
         document.body.style.setProperty('--header-group-height', `${headerGroupHeight}px`);
 
@@ -87,18 +89,12 @@
           });
         }
 
-        /**
-         * Updates CSS custom properties for transparent header offset calculation
-         * Mimic updateTransparentHeaderOffset() in utilities.js
-         */
-
         if (!hasHeaderSection || !header?.hasAttribute('transparent')) {
           document.body.style.setProperty('--transparent-header-offset-boolean', '0');
           return;
         }
 
         const hasImmediateSection = hasHeaderSection.nextElementSibling?.classList.contains('shopify-section');
-
         const shouldApplyOffset = !hasImmediateSection ? '1' : '0';
         document.body.style.setProperty('--transparent-header-offset-boolean', shouldApplyOffset);
       })();
@@ -118,6 +114,7 @@
       id="MainContent"
       class="content-for-layout"
       role="main"
+      tabindex="-1"
       data-page-transition-enabled="{{ settings.page_transition_enabled }}"
       data-product-transition="{{ settings.transition_to_main_product }}"
       data-template="{{ template }}"
@@ -125,7 +122,11 @@
       {{ content_for_layout }}
     </main>
 
-    <footer>
+    <footer
+      role="contentinfo"
+      itemscope
+      itemtype="https://schema.org/WPFooter"
+    >
       {% sections 'footer-group' %}
     </footer>
 

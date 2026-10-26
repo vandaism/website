@@ -235,6 +235,7 @@
     },
     "shipping_policy": "Доставката се изчислява при плащане.",
     "discount_code_error": "Кодът за отстъпка не може да бъде приложен към вашата количка",
+    "discount_update_error": "Something went wrong while updating your discounts. Check your connection and try again.",
     "shipping_discount_error": "Отстъпките от доставката се показват при преминаването към плащане след добавяне на адрес",
     "powered_by": "Този магазин ще се поддържа от",
     "store_owner_link_html": "Вие ли сте собственикът на магазина? <a href=\"{{ link }}\">Влезте тук</a>",
@@ -347,6 +348,17 @@
       "post": "Публикуване на коментар",
       "success_moderated": "Коментарът е публикуван, в очакване на модериране",
       "success": "Коментарът е публикуван"
+    }
+  },
+  "focusable": {
+    "calculator": {
+      "hybrid_hint": "Drag to adjust, or edit the value directly.",
+      "fine_sub": "{{ pct }}% of revenue · ceiling {{ ceiling }}%",
+      "penalty_sub": "ceiling {{ ceiling }}",
+      "roi": "Mitigation cost is {{ pct }}% of your potential exposure.",
+      "currency_format": "€{{ amount }}",
+      "thousands_separator": ",",
+      "decimal_separator": "."
     }
   }
 }

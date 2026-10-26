@@ -1,0 +1,286 @@
+{%- doc -%}
+  Shared design tokens and primitives for the Focusable landing sections.
+
+  Rendered once per page by every `focusable-*` section; Shopify de-duplicates
+  `{% stylesheet %}` output per file, so repeated renders are free.
+
+  Tokens are namespaced `--fc-*` so they never collide with Horizon's
+  `--color-*` / `--font-*` scheme variables. Typography inherits the theme's
+  body font (`--font-body--family`, configured as Inter) and adds a fixed
+  monospace stack Horizon has no setting for.
+
+  Contrast: `--fc-slate-400` is reserved for dark backgrounds only. On light
+  backgrounds the lightest permitted text tone is `--fc-slate-500` (4.76:1 on white).
+{%- enddoc -%}
+
+{% stylesheet %}
+  /* ---------- Tokens ---------- */
+  .fc-section {
+    --fc-white: #ffffff;
+    --fc-slate-50: #f8fafc;
+    --fc-slate-100: #f1f5f9;
+    --fc-slate-200: #e2e8f0;
+    --fc-slate-300: #cbd5e1;
+    --fc-slate-400: #94a3b8;
+    --fc-slate-500: #64748b;
+    --fc-slate-600: #475569;
+    --fc-slate-700: #334155;
+    --fc-slate-800: #1e293b;
+    --fc-slate-900: #0f172a;
+    --fc-slate-950: #0b1120;
+    --fc-emerald-50: #ecfdf5;
+    --fc-emerald-500: #10b981;
+    --fc-emerald-600: #059669;
+    --fc-emerald-700: #047857;
+
+    --fc-font-sans: var(--font-body--family, 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif);
+    --fc-font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, Consolas, monospace;
+
+    --fc-container: 1152px;
+    --fc-gutter: 24px;
+    --fc-radius-sm: 8px;
+    --fc-radius-md: 10px;
+    --fc-radius-lg: 16px;
+    --fc-radius-xl: 20px;
+    --fc-shadow-card: 0 1px 2px rgba(15, 23, 42, 0.03);
+    --fc-ease: 0.15s ease;
+
+    /* Surface roles, overridden by --light / --tint / --dark modifiers */
+    --fc-surface: var(--fc-white);
+    --fc-ink: var(--fc-slate-900);
+    --fc-ink-muted: var(--fc-slate-600);
+    --fc-ink-faint: var(--fc-slate-500);
+    --fc-ink-eyebrow: var(--fc-slate-500);
+    --fc-rule: var(--fc-slate-200);
+
+    font-family: var(--fc-font-sans);
+    color: var(--fc-ink);
+    background: var(--fc-surface);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .fc-section--tint {
+    --fc-surface: var(--fc-slate-50);
+    border-top: 1px solid var(--fc-slate-200);
+    border-bottom: 1px solid var(--fc-slate-200);
+  }
+
+  .fc-section--dark {
+    --fc-surface: var(--fc-slate-900);
+    --fc-ink: var(--fc-white);
+    --fc-ink-muted: var(--fc-slate-300);
+    --fc-ink-faint: var(--fc-slate-400);
+    --fc-ink-eyebrow: var(--fc-slate-300);
+    --fc-rule: rgba(255, 255, 255, 0.1);
+  }
+
+  .fc-section--deep {
+    --fc-surface: var(--fc-slate-950);
+    --fc-ink: var(--fc-white);
+    --fc-ink-muted: var(--fc-slate-300);
+    --fc-ink-faint: var(--fc-slate-400);
+    --fc-ink-eyebrow: var(--fc-slate-300);
+    --fc-rule: rgba(255, 255, 255, 0.1);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  /* ---------- Focus ring (scoped to Focusable sections only) ----------
+     Theme-adaptive: white ring reads on dark surfaces, dark halo reads on light ones,
+     so exactly one ring is visible on either. Horizon's currentcolor outline is
+     untouched outside these sections. */
+  .fc-section :focus-visible {
+    outline: 2px solid var(--fc-white);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 4px var(--fc-slate-900);
+    border-radius: 3px;
+  }
+
+  /* ---------- Layout ---------- */
+  .fc-container {
+    max-width: var(--fc-container);
+    margin-inline: auto;
+    padding-inline: var(--fc-gutter);
+  }
+
+  .fc-tnum {
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ---------- Section header primitives ---------- */
+  .fc-eyebrow {
+    margin: 0;
+    font-family: var(--fc-font-mono);
+    font-size: 11.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--fc-ink-eyebrow);
+  }
+
+  .fc-heading {
+    margin: 14px 0 0;
+    font-size: 2.25rem;
+    line-height: 1.15;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--fc-ink);
+    max-width: 42rem;
+    text-wrap: balance;
+  }
+
+  .fc-lede {
+    margin: 16px 0 0;
+    font-size: 17px;
+    color: var(--fc-ink-muted);
+    line-height: 1.7;
+    max-width: 62ch;
+  }
+
+  /* ---------- Buttons ---------- */
+  .fc-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 13px 24px;
+    border-radius: var(--fc-radius-md);
+    font: inherit;
+    font-size: 14.5px;
+    font-weight: 600;
+    line-height: 1.2;
+    text-decoration: none;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background-color var(--fc-ease), border-color var(--fc-ease);
+  }
+
+  .fc-btn--primary {
+    background: var(--fc-slate-900);
+    color: var(--fc-white);
+    border: 1px solid var(--fc-slate-900);
+  }
+
+  .fc-btn--primary:hover {
+    background: var(--fc-slate-800);
+  }
+
+  .fc-btn--secondary {
+    background: var(--fc-white);
+    color: var(--fc-slate-900);
+    border: 1px solid var(--fc-slate-200);
+  }
+
+  .fc-btn--secondary:hover {
+    border-color: var(--fc-slate-300);
+    background: var(--fc-slate-50);
+  }
+
+  .fc-btn--invert {
+    background: var(--fc-white);
+    color: var(--fc-slate-900);
+    border: 1px solid var(--fc-white);
+  }
+
+  .fc-btn--invert:hover {
+    background: var(--fc-slate-200);
+    border-color: var(--fc-slate-200);
+  }
+
+  .fc-btn--block {
+    width: 100%;
+  }
+
+  .fc-btn-note {
+    margin: 10px 0 0;
+    font-family: var(--fc-font-mono);
+    font-size: 12px;
+    color: var(--fc-ink-faint);
+  }
+
+  .fc-btn-note--center {
+    text-align: center;
+  }
+
+  .fc-btn-link {
+    --fc-link-icon-shift: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 13px 2px;
+    font-size: 14.5px;
+    font-weight: 600;
+    color: var(--fc-slate-700);
+    text-decoration: none;
+    transition: color var(--fc-ease), gap var(--fc-ease);
+  }
+
+  .fc-btn-link:hover {
+    --fc-link-icon-shift: 2px;
+    color: var(--fc-slate-900);
+    gap: 10px;
+  }
+
+  /* Parent hover reaches the icon through the inherited custom property, keeping the selector flat. */
+  .fc-btn-link__icon {
+    flex-shrink: 0;
+    transform: translateX(var(--fc-link-icon-shift));
+    transition: transform var(--fc-ease);
+  }
+
+  /* CTA pair: primary + note next to link + note */
+  .fc-cta-pair {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 32px;
+  }
+
+  .fc-cta-pair__item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  /* ---------- Badge / pill ---------- */
+  .fc-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid var(--fc-slate-200);
+    background: var(--fc-white);
+    border-radius: 999px;
+    padding: 7px 14px;
+    font-family: var(--fc-font-mono);
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--fc-slate-500);
+    box-shadow: var(--fc-shadow-card);
+  }
+
+  .fc-badge__dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 999px;
+    background: var(--fc-emerald-600);
+  }
+
+  .fc-icon {
+    display: block;
+    flex-shrink: 0;
+  }
+
+  /* ---------- Reduced motion ---------- */
+  @media (prefers-reduced-motion: reduce) {
+    .fc-section * {
+      transition-duration: 0.001ms !important;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .fc-cta-pair {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 24px;
+    }
+  }
+{% endstylesheet %}

@@ -1,0 +1,35 @@
+{%- doc -%}
+  Primary button + mono note beside a text link + mono note.
+  Used by the hero and manifesto sections; each side renders only when its label is set.
+
+  @param {object} settings - Section settings holding the CTA fields below
+  @param {string} [class] - Extra class names on the wrapper
+
+  Expected settings keys:
+    primary_label, primary_url, primary_note,
+    secondary_label, secondary_url, secondary_note
+{%- enddoc -%}
+
+{%- if settings.primary_label != blank or settings.secondary_label != blank -%}
+  <div class="fc-cta-pair{% if class != blank %} {{ class }}{% endif %}">
+    {%- if settings.primary_label != blank -%}
+      <div class="fc-cta-pair__item">
+        <a href="{{ settings.primary_url | default: '#' }}" class="fc-btn fc-btn--primary">{{ settings.primary_label | escape }}</a>
+        {%- if settings.primary_note != blank -%}
+          <p class="fc-btn-note">{{ settings.primary_note | escape }}</p>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+    {%- if settings.secondary_label != blank -%}
+      <div class="fc-cta-pair__item">
+        <a href="{{ settings.secondary_url | default: '#' }}" class="fc-btn-link">
+          {{ settings.secondary_label | escape }}
+          {%- render 'focusable-icon', icon: 'arrow', class: 'fc-btn-link__icon' -%}
+        </a>
+        {%- if settings.secondary_note != blank -%}
+          <p class="fc-btn-note">{{ settings.secondary_note | escape }}</p>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  </div>
+{%- endif -%}

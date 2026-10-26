@@ -1,0 +1,105 @@
+{% render 'focusable-styles' %}
+{% render 'workflow-timeline', section: section %}
+
+{% schema %}
+{
+  "name": "t:focusable.workflow.name",
+  "class": "fc-section-wrapper",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "t:focusable.common.eyebrow",
+      "default": "// Workflow & Delivery"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "t:focusable.common.heading",
+      "default": "How We Work"
+    },
+    {
+      "type": "textarea",
+      "id": "lede",
+      "label": "t:focusable.common.lede",
+      "default": "We engineer conversion-first compliance, transitioning your checkout infrastructure from vulnerability to verified code."
+    },
+    {
+      "type": "select",
+      "id": "surface",
+      "label": "t:focusable.common.surface",
+      "options": [
+        { "value": "light", "label": "t:focusable.common.surface_light" },
+        { "value": "tint", "label": "t:focusable.common.surface_tint" }
+      ],
+      "default": "tint"
+    },
+    {
+      "type": "header",
+      "content": "t:content.padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "t:settings.top",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 88
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "t:settings.bottom",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 88
+    }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "t:focusable.workflow.step",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "t:focusable.common.title",
+          "default": "15-Minute Kickoff"
+        },
+        {
+          "type": "textarea",
+          "id": "body",
+          "label": "t:focusable.common.body",
+          "default": "We align on target portals, technical access, and compliance goals."
+        },
+        {
+          "type": "text",
+          "id": "tag",
+          "label": "t:focusable.workflow.tag",
+          "info": "t:focusable.workflow.tag_info"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "t:focusable.workflow.name",
+      "category": "t:focusable.common.category",
+      "blocks": [
+        { "type": "step", "settings": { "title": "15-Minute Kickoff", "body": "We align on target portals, technical access, and compliance goals." } },
+        { "type": "step", "settings": { "title": "3-Day Technical Audit", "body": "We execute automated, manual, and assistive-technology scans across your codebase." } },
+        { "type": "step", "settings": { "title": "Artifact Delivery", "body": "We deliver your completed compliance files and Jira-ready tickets.", "tag": "Review call optional · max 1 hour" } },
+        { "type": "step", "settings": { "title": "24-Hour Verification", "body": "After your team applies the fixes, we run a final validation scan to certify the portal.", "tag": "Optional" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

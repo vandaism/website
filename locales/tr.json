@@ -227,6 +227,7 @@
     "store_owner_link_html": "Mağaza sahibi misiniz? <a href=\"{{ link }}\">Buradan oturum açın</a>",
     "shipping_discount_error": "Kargo indirimleri, adres eklendikten sonra ödeme sayfasında gösterilir",
     "discount_code_error": "Sepetinize indirim kodu uygulanamıyor",
+    "discount_update_error": "Something went wrong while updating your discounts. Check your connection and try again.",
     "inventory_low_stock": "Stok düzeyi düşük",
     "inventory_in_stock": "Stokta",
     "inventory_out_of_stock": "Stokta yok",
@@ -347,6 +348,17 @@
       "in_cart": "sepette",
       "default_title": "Varsayılan Başlık",
       "sticky_add_to_cart": "Sepete hızlı ekle çubuğu"
+    }
+  },
+  "focusable": {
+    "calculator": {
+      "hybrid_hint": "Drag to adjust, or edit the value directly.",
+      "fine_sub": "{{ pct }}% of revenue · ceiling {{ ceiling }}%",
+      "penalty_sub": "ceiling {{ ceiling }}",
+      "roi": "Mitigation cost is {{ pct }}% of your potential exposure.",
+      "currency_format": "€{{ amount }}",
+      "thousands_separator": ",",
+      "decimal_separator": "."
     }
   }
 }

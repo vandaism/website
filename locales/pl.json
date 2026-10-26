@@ -235,6 +235,7 @@
     "store_owner_link_html": "Czy jesteś właścicielem sklepu? <a href=\"{{ link }}\">Zaloguj się tutaj</a>",
     "shipping_discount_error": "Rabaty na wysyłkę są widoczne przy realizacji zakupu, gdy dodany zostanie adres",
     "discount_code_error": "Nie można dodać kodu rabatowego do Twojego koszyka",
+    "discount_update_error": "Something went wrong while updating your discounts. Check your connection and try again.",
     "inventory_low_stock": "Niski poziom zapasu",
     "inventory_in_stock": "W magazynie",
     "inventory_out_of_stock": "Zapas wyczerpany",
@@ -361,6 +362,17 @@
       "in_cart": "w koszyku",
       "default_title": "Tytuł domyślny",
       "sticky_add_to_cart": "Pasek szybkiego dodawania do koszyka"
+    }
+  },
+  "focusable": {
+    "calculator": {
+      "hybrid_hint": "Drag to adjust, or edit the value directly.",
+      "fine_sub": "{{ pct }}% of revenue · ceiling {{ ceiling }}%",
+      "penalty_sub": "ceiling {{ ceiling }}",
+      "roi": "Mitigation cost is {{ pct }}% of your potential exposure.",
+      "currency_format": "€{{ amount }}",
+      "thousands_separator": ",",
+      "decimal_separator": "."
     }
   }
 }

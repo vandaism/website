@@ -1,0 +1,19 @@
+{%- doc -%}
+  Eyebrow + heading + lede stack shared by the content sections.
+
+  @param {string} [eyebrow] - Mono uppercase kicker (rendered verbatim, escaped)
+  @param {string} heading - Section heading text
+  @param {string} heading_id - id for the heading; the section's `aria-labelledby` points at it
+  @param {string} [lede] - Supporting paragraph
+  @param {string} [heading_class] - Extra class names on the heading (e.g. an alignment modifier)
+{%- enddoc -%}
+
+{%- if eyebrow != blank -%}
+  <p class="fc-eyebrow">{{ eyebrow | escape }}</p>
+{%- endif -%}
+{%- if heading != blank -%}
+  <h2 class="fc-heading{% if heading_class != blank %} {{ heading_class }}{% endif %}" id="{{ heading_id }}">{{ heading | escape }}</h2>
+{%- endif -%}
+{%- if lede != blank -%}
+  <p class="fc-lede">{{ lede | escape }}</p>
+{%- endif -%}

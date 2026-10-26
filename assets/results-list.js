@@ -1,5 +1,6 @@
 import { mediaQueryLarge, requestIdleCallback, startViewTransition } from '@theme/utilities';
 import PaginatedList from '@theme/paginated-list';
+import { sessionStore } from '@theme/storage';
 
 /**
  * A custom element that renders a pagniated results list
@@ -41,7 +42,7 @@ export default class ResultsList extends PaginatedList {
 
     requestIdleCallback(() => {
       const viewport = mediaQueryLarge.matches ? 'desktop' : 'mobile';
-      sessionStorage.setItem(`product-grid-view-${viewport}`, value);
+      sessionStore.set(`product-grid-view-${viewport}`, value);
     });
   };
 

@@ -1,0 +1,172 @@
+{% render 'focusable-styles' %}
+{% render 'hero-compliance', section: section %}
+
+{% schema %}
+{
+  "name": "t:focusable.hero.name",
+  "class": "fc-section-wrapper",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "t:focusable.common.content_header"
+    },
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "t:focusable.hero.badge_text",
+      "default": "EAA & WCAG compliance for e-commerce"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "t:focusable.common.heading",
+      "info": "t:focusable.hero.heading_info",
+      "default": "Secure Your E‑commerce Pipeline.\nProtect Your Conversion Metrics."
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "t:focusable.common.description",
+      "default": "We align European retail storefronts to meet EAA compliance with zero disruption to your current dev cycle. No clunky overlays, no broken design systems — just sprint-ready code."
+    },
+    {
+      "type": "header",
+      "content": "t:focusable.common.cta_header"
+    },
+    {
+      "type": "text",
+      "id": "primary_label",
+      "label": "t:focusable.common.primary_label",
+      "default": "Get Async Audit"
+    },
+    {
+      "type": "url",
+      "id": "primary_url",
+      "label": "t:focusable.common.primary_url"
+    },
+    {
+      "type": "text",
+      "id": "primary_note",
+      "label": "t:focusable.common.primary_note",
+      "default": "€500 · 48h · No calls."
+    },
+    {
+      "type": "text",
+      "id": "secondary_label",
+      "label": "t:focusable.common.secondary_label",
+      "default": "Request Briefing"
+    },
+    {
+      "type": "url",
+      "id": "secondary_url",
+      "label": "t:focusable.common.secondary_url"
+    },
+    {
+      "type": "text",
+      "id": "secondary_note",
+      "label": "t:focusable.common.secondary_note",
+      "default": "15 mins · E-commerce compliance"
+    },
+    {
+      "type": "header",
+      "content": "t:focusable.hero.report_header"
+    },
+    {
+      "type": "text",
+      "id": "report_id",
+      "label": "t:focusable.hero.report_id",
+      "default": "REPORT · FCS-1042"
+    },
+    {
+      "type": "text",
+      "id": "report_pill",
+      "label": "t:focusable.hero.report_pill",
+      "default": "EAA Verified"
+    },
+    {
+      "type": "text",
+      "id": "report_title",
+      "label": "t:focusable.hero.report_title",
+      "default": "Checkout Accessibility Report"
+    },
+    {
+      "type": "text",
+      "id": "report_subtitle",
+      "label": "t:focusable.hero.report_subtitle",
+      "default": "Product Search · Cart · Checkout"
+    },
+    {
+      "type": "text",
+      "id": "summary_label",
+      "label": "t:focusable.hero.summary_label",
+      "default": "Issues resolved"
+    },
+    {
+      "type": "text",
+      "id": "summary_value",
+      "label": "t:focusable.hero.summary_value",
+      "default": "14 / 14"
+    },
+    {
+      "type": "header",
+      "content": "t:content.padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "t:settings.top",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 88
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "t:settings.bottom",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 96
+    }
+  ],
+  "blocks": [
+    {
+      "type": "report_row",
+      "name": "t:focusable.hero.report_row",
+      "limit": 6,
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "t:focusable.hero.row_label",
+          "default": "Keyboard focus order"
+        },
+        {
+          "type": "text",
+          "id": "ticket",
+          "label": "t:focusable.hero.row_ticket",
+          "default": "JIRA-482"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "t:focusable.hero.name",
+      "category": "t:focusable.common.category",
+      "blocks": [
+        { "type": "report_row", "settings": { "label": "Keyboard focus order", "ticket": "JIRA-482" } },
+        { "type": "report_row", "settings": { "label": "Cart contrast ratio", "ticket": "JIRA-486" } },
+        { "type": "report_row", "settings": { "label": "Screen-reader labels", "ticket": "JIRA-491" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

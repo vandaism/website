@@ -244,6 +244,7 @@
     "store_owner_link_html": "Ste vlastníkom obchodu? <a href=\"{{ link }}\">Prihláste sa tu</a>",
     "shipping_discount_error": "Zľavy na dopravu sa zobrazia pri platbe po pridaní adresy",
     "discount_code_error": "Zľavový kód nie je vo vašom košíku možné použiť",
+    "discount_update_error": "Something went wrong while updating your discounts. Check your connection and try again.",
     "page_placeholder_title": "Názov stránky",
     "page_placeholder_content": "Výberom stránky zobrazíte jej obsah.",
     "placeholder_image": "Obrázok zástupného objektu",
@@ -361,6 +362,17 @@
       "in_cart": "v košíku",
       "default_title": "Predvolený názov",
       "sticky_add_to_cart": "Panel rýchleho pridania do košíka"
+    }
+  },
+  "focusable": {
+    "calculator": {
+      "hybrid_hint": "Drag to adjust, or edit the value directly.",
+      "fine_sub": "{{ pct }}% of revenue · ceiling {{ ceiling }}%",
+      "penalty_sub": "ceiling {{ ceiling }}",
+      "roi": "Mitigation cost is {{ pct }}% of your potential exposure.",
+      "currency_format": "€{{ amount }}",
+      "thousands_separator": ",",
+      "decimal_separator": "."
     }
   }
 }

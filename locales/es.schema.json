@@ -1119,5 +1119,110 @@
     "other_sections": "Otros",
     "storytelling": "Narrativa",
     "text": "Texto"
+  },
+  "focusable": {
+    "common": {
+      "category": "Landing Focusable",
+      "content_header": "Contenido",
+      "cta_header": "Llamadas a la acción",
+      "eyebrow": "Antetítulo",
+      "heading": "Título",
+      "description": "Descripción",
+      "lede": "Introducción",
+      "label": "Etiqueta",
+      "title": "Título",
+      "body": "Texto",
+      "primary_label": "Texto del botón principal",
+      "primary_url": "Enlace del botón principal",
+      "primary_note": "Nota bajo el botón principal",
+      "secondary_label": "Texto del enlace",
+      "secondary_url": "Enlace",
+      "secondary_note": "Nota bajo el enlace",
+      "surface": "Fondo",
+      "surface_light": "Blanco",
+      "surface_tint": "Gris claro"
+    },
+    "hero": {
+      "name": "Hero Focusable",
+      "badge_text": "Texto de la insignia",
+      "heading_info": "Los saltos de línea se mantienen en escritorio y se eliminan en móvil.",
+      "report_header": "Tarjeta de informe",
+      "report_id": "ID del informe",
+      "report_pill": "Texto de la etiqueta de verificación",
+      "report_title": "Título del informe",
+      "report_subtitle": "Subtítulo del informe",
+      "summary_label": "Etiqueta del resumen",
+      "summary_value": "Valor del resumen",
+      "report_row": "Fila del informe",
+      "row_label": "Etiqueta de la comprobación",
+      "row_ticket": "Referencia del ticket"
+    },
+    "trust_band": {
+      "name": "Banda confianza Focusable",
+      "logo": "Logotipo",
+      "logo_label": "Nombre",
+      "logo_label_info": "Se muestra como texto si no se sube ninguna imagen; en caso contrario, se usa como texto alternativo de la imagen.",
+      "logo_image": "Imagen del logotipo",
+      "logo_image_info": "Opcional. Se muestra con 24 px de alto.",
+      "logo_url": "Enlace"
+    },
+    "market_reality": {
+      "name": "Tarjetas datos Focusable",
+      "stat": "Tarjeta de dato",
+      "stat_value": "Cifra"
+    },
+    "calculator": {
+      "name": "Calculadora Focusable",
+      "revenue_header": "Control de facturación",
+      "pages_header": "Control de complejidad",
+      "markets_header": "Control de jurisdicciones",
+      "posture_header": "Nivel de cumplimiento",
+      "formula_header": "Constantes de la fórmula",
+      "outputs_header": "Paneles de resultados",
+      "min": "Mínimo",
+      "max": "Máximo",
+      "step": "Incremento",
+      "default": "Valor por defecto",
+      "unit": "Etiqueta de unidad",
+      "fine_pct_min": "Multa con complejidad mínima",
+      "fine_pct_max": "Límite de la multa",
+      "penalty_floor": "Sanción con complejidad mínima (€)",
+      "penalty_ceiling": "Límite de la sanción (€)",
+      "cross_border_max": "Incremento transfronterizo con el máximo de jurisdicciones",
+      "cross_border_max_info": "El multiplicador de exposición crece linealmente desde el 0 % con el mínimo de mercados hasta este valor con el máximo.",
+      "mitigation_cost": "Coste de mitigación (€)",
+      "fine_label": "Etiqueta del panel de multa",
+      "penalty_label": "Etiqueta del panel de sanción",
+      "show_roi": "Mostrar la línea de comparación con el coste de mitigación",
+      "posture": "Opción de nivel de cumplimiento",
+      "posture_short_label": "Texto del botón",
+      "posture_label": "Etiqueta completa",
+      "posture_discount": "Reducción de la exposición",
+      "posture_discount_info": "La primera opción se selecciona por defecto."
+    },
+    "authority": {
+      "name": "Charlas Focusable",
+      "talk": "Charla",
+      "event": "Evento",
+      "thumbnail": "Miniatura",
+      "thumbnail_info": "Opcional, formato 16:9. Se muestra un icono de reproducción encima.",
+      "url": "Enlace",
+      "link_label": "Texto del enlace"
+    },
+    "manifesto": {
+      "name": "Manifiesto Focusable",
+      "heading_badge": "Insignia del título",
+      "heading_badge_info": "Etiqueta verde que sigue al texto del título.",
+      "item": "Propuesta de valor"
+    },
+    "workflow": {
+      "name": "Flujo trabajo Focusable",
+      "step": "Paso",
+      "tag": "Etiqueta",
+      "tag_info": "Pequeña etiqueta opcional bajo el paso, p. ej. «Opcional»."
+    },
+    "precta": {
+      "name": "CTA pre-pie Focusable"
+    }
   }
 }

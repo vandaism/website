@@ -227,6 +227,7 @@
     "store_owner_link_html": "스토어 소유자이신가요? <a href=\"{{ link }}\">여기에서 로그인</a>하세요.",
     "shipping_discount_error": "배송 요금 할인은 결제 단계에서 주소를 추가한 후에 표시됩니다.",
     "discount_code_error": "카트에 할인 코드를 적용할 수 없습니다",
+    "discount_update_error": "Something went wrong while updating your discounts. Check your connection and try again.",
     "inventory_low_stock": "재고 부족",
     "inventory_in_stock": "재고 있음",
     "inventory_out_of_stock": "품절",
@@ -347,6 +348,17 @@
       "post": "댓글 달기",
       "success_moderated": "댓글이 게시되었습니다. 조정 대기 중입니다",
       "success": "댓글 게시됨"
+    }
+  },
+  "focusable": {
+    "calculator": {
+      "hybrid_hint": "Drag to adjust, or edit the value directly.",
+      "fine_sub": "{{ pct }}% of revenue · ceiling {{ ceiling }}%",
+      "penalty_sub": "ceiling {{ ceiling }}",
+      "roi": "Mitigation cost is {{ pct }}% of your potential exposure.",
+      "currency_format": "€{{ amount }}",
+      "thousands_separator": ",",
+      "decimal_separator": "."
     }
   }
 }

@@ -1,3 +1,5 @@
+import { localStore } from '@theme/storage';
+
 /**
  * Updates the recently viewed products in localStorage.
  */
@@ -18,11 +20,11 @@ export class RecentlyViewed {
     viewedProducts.unshift(productId);
     viewedProducts = viewedProducts.slice(0, this.#MAX_PRODUCTS);
 
-    localStorage.setItem(this.#STORAGE_KEY, JSON.stringify(viewedProducts));
+    localStore.setJSON(this.#STORAGE_KEY, viewedProducts);
   }
 
   static clearProducts() {
-    localStorage.removeItem(this.#STORAGE_KEY);
+    localStore.remove(this.#STORAGE_KEY);
   }
 
   /**
@@ -30,6 +32,7 @@ export class RecentlyViewed {
    * @returns {string[]} The list of viewed products.
    */
   static getProducts() {
-    return JSON.parse(localStorage.getItem(this.#STORAGE_KEY) || '[]');
+    const products = localStore.getJSON(this.#STORAGE_KEY, []);
+    return Array.isArray(products) ? products : [];
   }
 }

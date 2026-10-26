@@ -1,0 +1,113 @@
+{%- doc -%}
+  Centered "engineered for" label above a wrapped row of stack logos.
+  Each `logo` block renders its uploaded image when present (label becomes the
+  alt text) and falls back to the label as wordmark text. A block whose label
+  is exactly "React" gets the inline atom glyph from the mockup.
+
+  @param {object} section - The trust-band section (settings + blocks)
+{%- enddoc -%}
+
+{%- liquid
+  assign s = section.settings
+  assign label_id = 'fc-trust-band-label-' | append: section.id
+-%}
+
+<section
+  class="fc-section fc-trust-band"
+  aria-labelledby="{{ label_id }}"
+  style="{% render 'spacing-style', settings: s %}"
+>
+  <div class="fc-container">
+    <p class="fc-trust-band__label" id="{{ label_id }}">{{ s.heading | escape }}</p>
+
+    {%- if section.blocks.size > 0 -%}
+      <ul class="fc-trust-band__logos" role="list">
+        {%- for block in section.blocks -%}
+          {%- liquid
+            assign label = block.settings.label
+            assign tag = 'span'
+            if block.settings.url != blank
+              assign tag = 'a'
+            endif
+          -%}
+          <li class="fc-trust-band__item" {{ block.shopify_attributes }}>
+            <{{ tag }}
+              class="fc-trust-band__logo"
+              {% if tag == 'a' %}href="{{ block.settings.url }}"{% endif %}
+            >
+              {%- if block.settings.image != blank -%}
+                {{
+                  block.settings.image
+                  | image_url: height: 48
+                  | image_tag: class: 'fc-trust-band__image', alt: label, loading: 'lazy'
+                }}
+              {%- else -%}
+                {%- if label == 'React' -%}
+                  {%- render 'focusable-icon', icon: 'react' -%}
+                {%- endif -%}
+                {{ label | escape }}
+              {%- endif -%}
+            </{{ tag }}>
+          </li>
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+  </div>
+</section>
+
+{% stylesheet %}
+  .fc-trust-band {
+    border-top: 1px solid var(--fc-slate-200);
+    padding-block: var(--padding-block-start, 56px) var(--padding-block-end, 56px);
+  }
+
+  .fc-trust-band__label {
+    margin: 0;
+    text-align: center;
+    font-family: var(--fc-font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--fc-slate-500);
+  }
+
+  .fc-trust-band__logos {
+    list-style: none;
+    margin: 32px 0 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 40px 48px;
+  }
+
+  .fc-trust-band__item {
+    display: contents;
+  }
+
+  .fc-trust-band__logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--fc-slate-500); /* was slate-400 @ .85 opacity (~2.6:1); lifted to AA */
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    text-decoration: none;
+    transition: color 0.25s ease;
+  }
+
+  .fc-trust-band__logo:hover,
+  .fc-trust-band__logo:focus-visible {
+    color: var(--fc-slate-900);
+  }
+
+  .fc-trust-band__image {
+    display: block;
+    height: 24px;
+    width: auto;
+    max-width: 160px;
+    object-fit: contain;
+  }
+{% endstylesheet %}

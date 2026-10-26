@@ -184,6 +184,12 @@
                     >
                       {{ 'content.shipping_discount_error' | t }}
                     </small>
+                    <small
+                      class="cart-discount__error-text cart-primary-typography hidden"
+                      ref="cartDiscountErrorGeneral"
+                    >
+                      {{ 'content.discount_update_error' | t }}
+                    </small>
                   </div>
                   <ul class="cart-discount__codes">
                     {% for discount_code in discount_codes %}

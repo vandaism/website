@@ -1,6 +1,7 @@
 import { Component } from '@theme/component';
 import { onAnimationEnd } from '@theme/utilities';
 import { ThemeEvents, CartUpdateEvent } from '@theme/events';
+import { sessionStore } from '@theme/storage';
 
 /**
  * A custom element that displays a cart icon.
@@ -75,13 +76,11 @@ class CartIcon extends Component {
 
     this.classList.toggle('header-actions__cart-icon--has-cart', itemCount > 0);
 
-    sessionStorage.setItem(
-      'cart-count',
-      JSON.stringify({
-        value: String(this.currentCartCount),
-        timestamp: Date.now(),
-      })
-    );
+    // Guarded: a blocked storage area must not abort the animation below.
+    sessionStore.setJSON('cart-count', {
+      value: String(this.currentCartCount),
+      timestamp: Date.now(),
+    });
 
     if (!animate || itemCount === 0) return;
 
@@ -102,29 +101,24 @@ class CartIcon extends Component {
     // Ensure refs are available
     if (!this.refs.cartBubbleCount) return;
 
-    const sessionStorageCount = sessionStorage.getItem('cart-count');
+    /** @type {{ value?: string, timestamp?: number } | null} */
+    const stored = sessionStore.getJSON('cart-count', null);
 
-    // If no session storage data, nothing to check
-    if (sessionStorageCount === null) return;
+    // If no (readable) session storage data, nothing to check
+    if (!stored || typeof stored.value !== 'string' || typeof stored.timestamp !== 'number') return;
 
     const visibleCount = this.refs.cartBubbleCount.textContent;
 
-    try {
-      const { value, timestamp } = JSON.parse(sessionStorageCount);
+    // Check if the stored count matches what's visible
+    if (stored.value === visibleCount) return;
 
-      // Check if the stored count matches what's visible
-      if (value === visibleCount) return;
+    // Only update if timestamp is recent (within 10 seconds)
+    if (Date.now() - stored.timestamp < 10000) {
+      const count = parseInt(stored.value, 10);
 
-      // Only update if timestamp is recent (within 10 seconds)
-      if (Date.now() - timestamp < 10000) {
-        const count = parseInt(value, 10);
-
-        if (count >= 0) {
-          this.renderCartBubble(count, false, false);
-        }
+      if (count >= 0) {
+        this.renderCartBubble(count, false, false);
       }
-    } catch (_) {
-      // no-op
     }
   };
 }

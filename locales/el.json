@@ -235,6 +235,7 @@
     },
     "shipping_policy": "Τα έξοδα αποστολής υπολογίζονται κατά την ολοκλήρωση της αγοράς.",
     "discount_code_error": "Ο κωδικός έκπτωσης δεν μπορεί να εφαρμοστεί στο καλάθι σας",
+    "discount_update_error": "Something went wrong while updating your discounts. Check your connection and try again.",
     "powered_by": "Αυτό το κατάστημα θα υποστηρίζεται από το",
     "store_owner_link_html": "Είστε ο ιδιοκτήτης του καταστήματος; <a href=\"{{ link }}\">Συνδεθείτε εδώ</a>",
     "shipping_discount_error": "Οι εκπτώσεις αποστολής εμφανίζονται στην ολοκλήρωση αγοράς μετά την προσθήκη διεύθυνσης",
@@ -347,6 +348,17 @@
       "post": "Ανάρτηση σχολίου",
       "success_moderated": "Το σχόλιο δημοσιεύτηκε, εν αναμονή τροποποίησης",
       "success": "Το σχόλιο δημοσιεύτηκε"
+    }
+  },
+  "focusable": {
+    "calculator": {
+      "hybrid_hint": "Drag to adjust, or edit the value directly.",
+      "fine_sub": "{{ pct }}% of revenue · ceiling {{ ceiling }}%",
+      "penalty_sub": "ceiling {{ ceiling }}",
+      "roi": "Mitigation cost is {{ pct }}% of your potential exposure.",
+      "currency_format": "€{{ amount }}",
+      "thousands_separator": ",",
+      "decimal_separator": "."
     }
   }
 }

@@ -1,0 +1,107 @@
+{%- doc -%}
+  Section header plus a responsive grid of stat cards (`stat` blocks):
+  large mono figure, title, body.
+
+  @param {object} section - The market-reality section (settings + blocks)
+{%- enddoc -%}
+
+{%- liquid
+  assign s = section.settings
+  assign heading_id = 'fc-market-heading-' | append: section.id
+-%}
+
+<section
+  class="fc-section fc-section--{{ s.surface }} fc-market"
+  aria-labelledby="{{ heading_id }}"
+  style="{% render 'spacing-style', settings: s %}"
+>
+  <div class="fc-container">
+    {%- render 'focusable-section-header', eyebrow: s.eyebrow, heading: s.heading, heading_id: heading_id, lede: s.lede -%}
+
+    {%- if section.blocks.size > 0 -%}
+      <ul class="fc-market__grid" role="list">
+        {%- for block in section.blocks -%}
+          <li class="fc-stat-card" {{ block.shopify_attributes }}>
+            <p class="fc-stat-card__value-slot">
+              <span class="fc-stat-card__value fc-tnum">{{ block.settings.value | escape }}</span>
+            </p>
+            <h3 class="fc-stat-card__title">{{ block.settings.title | escape }}</h3>
+            {%- if block.settings.body != blank -%}
+              <p class="fc-stat-card__body">{{ block.settings.body | escape }}</p>
+            {%- endif -%}
+          </li>
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+  </div>
+</section>
+
+{% stylesheet %}
+  .fc-market {
+    padding-block: var(--padding-block-start, 88px) var(--padding-block-end, 88px);
+  }
+
+  .fc-market__grid {
+    list-style: none;
+    margin: 44px 0 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .fc-stat-card {
+    background: var(--fc-white);
+    border: 1px solid var(--fc-slate-200);
+    border-radius: var(--fc-radius-lg);
+    box-shadow: var(--fc-shadow-card);
+    padding: 28px;
+  }
+
+  .fc-stat-card__value-slot {
+    margin: 0 0 24px;
+    height: 40px;
+    display: flex;
+    align-items: flex-end;
+  }
+
+  .fc-stat-card__value {
+    font-family: var(--fc-font-mono);
+    font-size: 1.875rem;
+    line-height: 1.1;
+    font-weight: 700;
+    color: var(--fc-slate-900);
+    letter-spacing: -0.02em;
+    white-space: nowrap;
+  }
+
+  .fc-stat-card__title {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--fc-slate-900);
+  }
+
+  .fc-stat-card__body {
+    margin: 8px 0 0;
+    font-size: 13.5px;
+    color: var(--fc-slate-600);
+    line-height: 1.65;
+  }
+
+  @media (min-width: 961px) {
+    .fc-stat-card__value {
+      font-size: 2.25rem;
+    }
+
+    .fc-stat-card__value-slot {
+      height: 48px;
+    }
+  }
+
+  @media (max-width: 960px) {
+    .fc-market__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+{% endstylesheet %}

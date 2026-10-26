@@ -11,13 +11,14 @@ import { cartPerformance } from '@theme/performance';
  * @property {HTMLElement} cartDiscountError - The error element.
  * @property {HTMLElement} cartDiscountErrorDiscountCode - The discount code error element.
  * @property {HTMLElement} cartDiscountErrorShipping - The shipping error element.
+ * @property {HTMLElement} cartDiscountErrorGeneral - The request/parse failure error element.
  */
 
 /**
  * @extends {Component<CartDiscountComponentRefs>}
  */
 class CartDiscount extends Component {
-  requiredRefs = ['cartDiscountError', 'cartDiscountErrorDiscountCode', 'cartDiscountErrorShipping'];
+  requiredRefs = ['cartDiscountError', 'cartDiscountErrorDiscountCode', 'cartDiscountErrorShipping', 'cartDiscountErrorGeneral'];
 
   /** @type {AbortController | null} */
   #activeFetch = null;
@@ -37,8 +38,6 @@ class CartDiscount extends Component {
    * @param {SubmitEvent} event - The submit event on our form.
    */
   applyDiscount = async (event) => {
-    const { cartDiscountError, cartDiscountErrorDiscountCode, cartDiscountErrorShipping } = this.refs;
-
     event.preventDefault();
     event.stopPropagation();
 
@@ -56,9 +55,7 @@ class CartDiscount extends Component {
       const existingDiscounts = this.#existingDiscounts();
       if (existingDiscounts.includes(discountCodeValue)) return;
 
-      cartDiscountError.classList.add('hidden');
-      cartDiscountErrorDiscountCode.classList.add('hidden');
-      cartDiscountErrorShipping.classList.add('hidden');
+      this.#hideDiscountErrors();
 
       const config = fetchConfig('json', {
         body: JSON.stringify({
@@ -71,6 +68,8 @@ class CartDiscount extends Component {
         ...config,
         signal: abortController.signal,
       });
+
+      if (!response.ok) throw new Error(`Cart update failed with status ${response.status}`);
 
       const data = await response.json();
 
@@ -111,6 +110,7 @@ class CartDiscount extends Component {
       document.dispatchEvent(new DiscountUpdateEvent(data, this.id));
       morphSection(this.dataset.sectionId, newHtml);
     } catch (error) {
+      this.#reportFailure('applyDiscount', error);
     } finally {
       this.#activeFetch = null;
       cartPerformance.measureFromEvent('discount-update:user-action', event);
@@ -149,6 +149,8 @@ class CartDiscount extends Component {
     const abortController = this.#createAbortController();
 
     try {
+      this.#hideDiscountErrors();
+
       const config = fetchConfig('json', {
         body: JSON.stringify({ discount: existingDiscounts.join(','), sections: [this.dataset.sectionId] }),
       });
@@ -158,26 +160,64 @@ class CartDiscount extends Component {
         signal: abortController.signal,
       });
 
+      if (!response.ok) throw new Error(`Cart update failed with status ${response.status}`);
+
       const data = await response.json();
 
       document.dispatchEvent(new DiscountUpdateEvent(data, this.id));
       morphSection(this.dataset.sectionId, data.sections[this.dataset.sectionId]);
     } catch (error) {
+      this.#reportFailure('removeDiscount', error);
     } finally {
       this.#activeFetch = null;
     }
   };
 
   /**
-   * Handles the discount error.
+   * Surfaces a failed cart update to the user. An aborted request is not a failure:
+   * it means a newer request superseded this one.
    *
-   * @param {'discount_code' | 'shipping'} type - The type of discount error.
+   * @param {'applyDiscount' | 'removeDiscount'} action
+   * @param {unknown} error
+   */
+  #reportFailure(action, error) {
+    if (error instanceof DOMException && error.name === 'AbortError') return;
+
+    console.error(`[cart-discount] ${action} failed`, error);
+    this.#handleDiscountError('general');
+  }
+
+  /**
+   * Hides the error container and every error message inside it.
+   */
+  #hideDiscountErrors() {
+    const { cartDiscountError, cartDiscountErrorDiscountCode, cartDiscountErrorShipping, cartDiscountErrorGeneral } =
+      this.refs;
+
+    cartDiscountError.classList.add('hidden');
+    cartDiscountErrorDiscountCode.classList.add('hidden');
+    cartDiscountErrorShipping.classList.add('hidden');
+    cartDiscountErrorGeneral.classList.add('hidden');
+  }
+
+  /**
+   * Shows one discount error message. The container has `role="alert"`, so
+   * un-hiding it announces the message to assistive technology.
+   *
+   * @param {'discount_code' | 'shipping' | 'general'} type - The type of discount error.
    */
   #handleDiscountError(type) {
-    const { cartDiscountError, cartDiscountErrorDiscountCode, cartDiscountErrorShipping } = this.refs;
-    const target = type === 'discount_code' ? cartDiscountErrorDiscountCode : cartDiscountErrorShipping;
+    const { cartDiscountError, cartDiscountErrorDiscountCode, cartDiscountErrorShipping, cartDiscountErrorGeneral } =
+      this.refs;
+    const targets = {
+      discount_code: cartDiscountErrorDiscountCode,
+      shipping: cartDiscountErrorShipping,
+      general: cartDiscountErrorGeneral,
+    };
+
+    this.#hideDiscountErrors();
     cartDiscountError.classList.remove('hidden');
-    target.classList.remove('hidden');
+    targets[type].classList.remove('hidden');
   }
 
   /**

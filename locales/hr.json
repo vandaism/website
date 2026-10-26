@@ -240,6 +240,7 @@
       "few": "preostalo: {{ count }}"
     },
     "discount_code_error": "Kod za popust se ne može primijeniti na Vašu košaricu",
+    "discount_update_error": "Something went wrong while updating your discounts. Check your connection and try again.",
     "shipping_discount_error": "Popusti na dostavu prikazuju se na blagajni nakon dodavanja adrese",
     "powered_by": "Ova trgovina koristi sustav",
     "store_owner_link_html": "Jeste li vlasnik/vlasnica trgovine? <a href=\"{{ link }}\">Prijavite se ovdje</a>",
@@ -354,6 +355,17 @@
       "post": "Objavi komentar",
       "success_moderated": "Komentar je objavljen, čeka moderiranje",
       "success": "Komentar objavljen"
+    }
+  },
+  "focusable": {
+    "calculator": {
+      "hybrid_hint": "Drag to adjust, or edit the value directly.",
+      "fine_sub": "{{ pct }}% of revenue · ceiling {{ ceiling }}%",
+      "penalty_sub": "ceiling {{ ceiling }}",
+      "roi": "Mitigation cost is {{ pct }}% of your potential exposure.",
+      "currency_format": "€{{ amount }}",
+      "thousands_separator": ",",
+      "decimal_separator": "."
     }
   }
 }

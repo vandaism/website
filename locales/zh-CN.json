@@ -235,6 +235,7 @@
     },
     "shipping_discount_error": "添加地址后，结账时会显示运费折扣",
     "discount_code_error": "折扣码无法应用于您的购物车",
+    "discount_update_error": "Something went wrong while updating your discounts. Check your connection and try again.",
     "shipping_policy": "结账时计算运费。",
     "powered_by": "此商店依托",
     "store_owner_link_html": "您是否为店主？<a href=\"{{ link }}\">在此处登录</a>",
@@ -347,6 +348,17 @@
       "post": "发布评论",
       "success_moderated": "评论已发布，等待审核",
       "success": "评论已发布"
+    }
+  },
+  "focusable": {
+    "calculator": {
+      "hybrid_hint": "Drag to adjust, or edit the value directly.",
+      "fine_sub": "{{ pct }}% of revenue · ceiling {{ ceiling }}%",
+      "penalty_sub": "ceiling {{ ceiling }}",
+      "roi": "Mitigation cost is {{ pct }}% of your potential exposure.",
+      "currency_format": "€{{ amount }}",
+      "thousands_separator": ",",
+      "decimal_separator": "."
     }
   }
 }

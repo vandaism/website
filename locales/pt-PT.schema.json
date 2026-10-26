@@ -1119,5 +1119,110 @@
     "other_sections": "Outras",
     "storytelling": "Narrativa",
     "text": "Texto"
+  },
+  "focusable": {
+    "common": {
+      "category": "Focusable landing",
+      "content_header": "Content",
+      "cta_header": "Calls to action",
+      "eyebrow": "Eyebrow",
+      "heading": "Heading",
+      "description": "Description",
+      "lede": "Introduction",
+      "label": "Label",
+      "title": "Title",
+      "body": "Body",
+      "primary_label": "Primary button label",
+      "primary_url": "Primary button link",
+      "primary_note": "Note under primary button",
+      "secondary_label": "Text link label",
+      "secondary_url": "Text link",
+      "secondary_note": "Note under text link",
+      "surface": "Background",
+      "surface_light": "White",
+      "surface_tint": "Light grey"
+    },
+    "hero": {
+      "name": "Focusable hero",
+      "badge_text": "Badge text",
+      "heading_info": "Line breaks are kept on desktop and collapsed on mobile.",
+      "report_header": "Report card",
+      "report_id": "Report ID",
+      "report_pill": "Verified pill text",
+      "report_title": "Report title",
+      "report_subtitle": "Report subtitle",
+      "summary_label": "Summary label",
+      "summary_value": "Summary value",
+      "report_row": "Report row",
+      "row_label": "Check label",
+      "row_ticket": "Ticket reference"
+    },
+    "trust_band": {
+      "name": "Focusable trust band",
+      "logo": "Logo",
+      "logo_label": "Name",
+      "logo_label_info": "Shown as a wordmark when no image is uploaded; used as the image's alt text otherwise.",
+      "logo_image": "Logo image",
+      "logo_image_info": "Optional. Rendered at 24px tall.",
+      "logo_url": "Link"
+    },
+    "market_reality": {
+      "name": "Focusable stat cards",
+      "stat": "Stat card",
+      "stat_value": "Figure"
+    },
+    "calculator": {
+      "name": "Focusable risk calculator",
+      "revenue_header": "Revenue slider",
+      "pages_header": "Complexity slider",
+      "markets_header": "Jurisdictions slider",
+      "posture_header": "Compliance posture",
+      "formula_header": "Formula constants",
+      "outputs_header": "Output tiles",
+      "min": "Minimum",
+      "max": "Maximum",
+      "step": "Step",
+      "default": "Default value",
+      "unit": "Unit label",
+      "fine_pct_min": "Fine at minimum complexity",
+      "fine_pct_max": "Fine ceiling",
+      "penalty_floor": "Penalty at minimum complexity (€)",
+      "penalty_ceiling": "Penalty ceiling (€)",
+      "cross_border_max": "Cross-border uplift at maximum jurisdictions",
+      "cross_border_max_info": "Exposure multiplier grows linearly from 0% at the minimum number of markets to this value at the maximum.",
+      "mitigation_cost": "Mitigation cost (€)",
+      "fine_label": "Fine tile label",
+      "penalty_label": "Penalty tile label",
+      "show_roi": "Show mitigation-cost comparison line",
+      "posture": "Posture option",
+      "posture_short_label": "Button text",
+      "posture_label": "Full label",
+      "posture_discount": "Exposure reduction",
+      "posture_discount_info": "The first option is selected by default."
+    },
+    "authority": {
+      "name": "Focusable talks grid",
+      "talk": "Talk",
+      "event": "Event",
+      "thumbnail": "Thumbnail",
+      "thumbnail_info": "Optional, 16:9. A play glyph is shown over it.",
+      "url": "Link",
+      "link_label": "Link label"
+    },
+    "manifesto": {
+      "name": "Focusable manifesto",
+      "heading_badge": "Heading badge",
+      "heading_badge_info": "Green pill that follows the heading text.",
+      "item": "Value proposition"
+    },
+    "workflow": {
+      "name": "Focusable workflow timeline",
+      "step": "Step",
+      "tag": "Tag",
+      "tag_info": "Optional small pill under the step, e.g. \"Optional\"."
+    },
+    "precta": {
+      "name": "Focusable pre-footer CTA"
+    }
   }
 }

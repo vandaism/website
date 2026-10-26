@@ -1,0 +1,26 @@
+{%- doc -%}
+  Server-side integer formatting with a thousands separator, for the calculator's
+  no-JS defaults (Shopify Liquid has no delimiter filter that is currency-agnostic).
+  Output is unescaped text; the value is numeric so nothing user-authored passes through.
+
+  @param {number} value - Number to format; rounded to an integer first
+  @param {string} [separator] - Thousands separator (default ",")
+{%- enddoc -%}
+
+{%- liquid
+  assign sep = separator | default: ','
+  assign digits = value | round | append: ''
+  assign len = digits.size
+  assign out = ''
+  for i in (1..len)
+    assign idx = i | minus: 1
+    assign remaining = len | minus: idx
+    assign char = digits | slice: idx, 1
+    assign out = out | append: char
+    assign mod = remaining | minus: 1 | modulo: 3
+    if mod == 0 and remaining > 1
+      assign out = out | append: sep
+    endif
+  endfor
+  echo out
+-%}

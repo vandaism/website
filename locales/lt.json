@@ -244,6 +244,7 @@
       "many": "Liko {{ count }}"
     },
     "discount_code_error": "Jūsų krepšeliui nuolaidos kodo pritaikyti negalima",
+    "discount_update_error": "Something went wrong while updating your discounts. Check your connection and try again.",
     "shipping_policy": "Siuntimo išlaidos apskaičiuojamos atsiskaitant.",
     "shipping_discount_error": "Siuntimui taikomos nuolaidos rodomos atsiskaitant, įvedus adresą",
     "powered_by": "Ši parduotuvė bus teikiama per platformą",
@@ -361,6 +362,17 @@
       "in_cart": "krepšelyje",
       "default_title": "Numatytasis pavadinimas",
       "sticky_add_to_cart": "Greito pridėjimo į krepšelį juosta"
+    }
+  },
+  "focusable": {
+    "calculator": {
+      "hybrid_hint": "Drag to adjust, or edit the value directly.",
+      "fine_sub": "{{ pct }}% of revenue · ceiling {{ ceiling }}%",
+      "penalty_sub": "ceiling {{ ceiling }}",
+      "roi": "Mitigation cost is {{ pct }}% of your potential exposure.",
+      "currency_format": "€{{ amount }}",
+      "thousands_separator": ",",
+      "decimal_separator": "."
     }
   }
 }

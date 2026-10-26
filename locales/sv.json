@@ -230,6 +230,7 @@
     "store_owner_link_html": "Är du butiksägaren? <a href=\"{{ link }}\">Logga in här</a>",
     "shipping_discount_error": "Leveransrabatter visas i kassan när du lägger till en adress",
     "discount_code_error": "Rabattkoden kan inte tillämpas på din varukorg",
+    "discount_update_error": "Something went wrong while updating your discounts. Check your connection and try again.",
     "inventory_low_stock": "Låg lagernivå",
     "inventory_in_stock": "I lager",
     "inventory_out_of_stock": "Slut i lager",
@@ -347,6 +348,17 @@
       "in_cart": "i varukorg",
       "default_title": "Standardtitel",
       "sticky_add_to_cart": "Fält för att lägga till snabbt i varukorgen"
+    }
+  },
+  "focusable": {
+    "calculator": {
+      "hybrid_hint": "Drag to adjust, or edit the value directly.",
+      "fine_sub": "{{ pct }}% of revenue · ceiling {{ ceiling }}%",
+      "penalty_sub": "ceiling {{ ceiling }}",
+      "roi": "Mitigation cost is {{ pct }}% of your potential exposure.",
+      "currency_format": "€{{ amount }}",
+      "thousands_separator": ",",
+      "decimal_separator": "."
     }
   }
 }

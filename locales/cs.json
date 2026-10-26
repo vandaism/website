@@ -247,6 +247,7 @@
     "store_owner_link_html": "Jste majitelem obchodu? <a href=\"{{ link }}\">Přihlaste se zde</a>",
     "shipping_discount_error": "Slevy na dopravu se zobrazí při placení po přidání adresy.",
     "discount_code_error": "Slevový kód nelze na váš košík uplatnit",
+    "discount_update_error": "Something went wrong while updating your discounts. Check your connection and try again.",
     "shipping_policy": "Cena za dopravu se vypočítá u pokladny.",
     "recipient_form_send_to": "Odeslat na",
     "recipient_form_email_label": "E-mail příjemce",
@@ -361,6 +362,17 @@
       "post": "Publikovat komentář",
       "success_moderated": "Komentář odeslán, čeká na schválení",
       "success": "Komentář zveřejněn"
+    }
+  },
+  "focusable": {
+    "calculator": {
+      "hybrid_hint": "Drag to adjust, or edit the value directly.",
+      "fine_sub": "{{ pct }}% of revenue · ceiling {{ ceiling }}%",
+      "penalty_sub": "ceiling {{ ceiling }}",
+      "roi": "Mitigation cost is {{ pct }}% of your potential exposure.",
+      "currency_format": "€{{ amount }}",
+      "thousands_separator": ",",
+      "decimal_separator": "."
     }
   }
 }

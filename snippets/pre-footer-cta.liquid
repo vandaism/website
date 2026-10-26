@@ -1,0 +1,80 @@
+{%- doc -%}
+  Centered light CTA block that sits directly above the dark footer.
+
+  @param {object} section - The pre-footer-cta section
+{%- enddoc -%}
+
+{%- liquid
+  assign s = section.settings
+  assign heading_id = 'fc-precta-heading-' | append: section.id
+-%}
+
+<section
+  class="fc-section fc-precta"
+  aria-labelledby="{{ heading_id }}"
+  style="{% render 'spacing-style', settings: s %}"
+>
+  <div class="fc-container">
+    <div class="fc-precta__inner">
+      {%- if s.eyebrow != blank -%}
+        <p class="fc-eyebrow">{{ s.eyebrow | escape }}</p>
+      {%- endif -%}
+      <h2 class="fc-precta__heading" id="{{ heading_id }}">{{ s.heading | escape }}</h2>
+      {%- if s.lede != blank -%}
+        <p class="fc-precta__sub">{{ s.lede | escape }}</p>
+      {%- endif -%}
+
+      {%- if s.primary_label != blank -%}
+        <div class="fc-precta__cta">
+          <a href="{{ s.primary_url | default: '#' }}" class="fc-btn fc-btn--primary">{{ s.primary_label | escape }}</a>
+          {%- if s.primary_note != blank -%}
+            <p class="fc-btn-note fc-precta__note">{{ s.primary_note | escape }}</p>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .fc-precta {
+    padding-block: var(--padding-block-start, 128px) var(--padding-block-end, 128px);
+  }
+
+  .fc-precta__inner {
+    max-width: 42rem;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .fc-precta__heading {
+    margin: 14px 0 0;
+    font-size: 2.75rem;
+    line-height: 1.15;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--fc-slate-900);
+    text-wrap: balance;
+  }
+
+  .fc-precta__sub {
+    margin: 20px 0 0;
+    font-size: 18px;
+    line-height: 1.7;
+    color: var(--fc-slate-600);
+  }
+
+  .fc-precta__cta {
+    margin-top: 40px;
+  }
+
+  .fc-precta__note {
+    color: var(--fc-slate-600);
+  }
+
+  @media (max-width: 960px) {
+    .fc-precta__heading {
+      font-size: 2.1rem;
+    }
+  }
+{% endstylesheet %}

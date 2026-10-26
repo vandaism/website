@@ -234,6 +234,7 @@
     "store_owner_link_html": "¿Esta tienda es tuya? <a href=\"{{ link }}\">Inicia sesión aquí</a>",
     "shipping_discount_error": "Los descuentos de envío se muestran en la pantalla de pago tras agregar una dirección",
     "discount_code_error": "El código de descuento no se puede aplicar a tu carrito",
+    "discount_update_error": "Se ha producido un error al actualizar los descuentos. Comprueba tu conexión e inténtalo de nuevo.",
     "inventory_low_stock": "Bajas existencias",
     "inventory_in_stock": "En existencias",
     "inventory_out_of_stock": "Agotado",
@@ -354,6 +355,17 @@
       "post": "Publicar comentario",
       "success_moderated": "Comentario publicado y a la espera de moderación",
       "success": "Comentario publicado"
+    }
+  },
+  "focusable": {
+    "calculator": {
+      "hybrid_hint": "Arrastra para ajustar, o edita el valor directamente.",
+      "fine_sub": "{{ pct }} % de la facturación · límite del {{ ceiling }} %",
+      "penalty_sub": "límite de {{ ceiling }}",
+      "roi": "El coste de mitigación equivale al {{ pct }} % de tu exposición potencial.",
+      "currency_format": "{{ amount }} €",
+      "thousands_separator": ".",
+      "decimal_separator": ","
     }
   }
 }

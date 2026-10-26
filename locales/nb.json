@@ -228,6 +228,7 @@
     "placeholder_image": "Plassholderbilde",
     "shipping_discount_error": "Fraktrabatter vises i kassen etter at du har lagt til en adresse",
     "discount_code_error": "Rabattkoden kan ikke brukes på handlekurven din",
+    "discount_update_error": "Something went wrong while updating your discounts. Check your connection and try again.",
     "inventory_low_stock": "Lav lagerbeholdning",
     "inventory_in_stock": "På lager",
     "inventory_out_of_stock": "Ikke på lager",
@@ -347,6 +348,17 @@
       "in_cart": "i handlekurv",
       "default_title": "Standardtittel",
       "sticky_add_to_cart": "Hurtiglinje for «Legg i handlekurv»"
+    }
+  },
+  "focusable": {
+    "calculator": {
+      "hybrid_hint": "Drag to adjust, or edit the value directly.",
+      "fine_sub": "{{ pct }}% of revenue · ceiling {{ ceiling }}%",
+      "penalty_sub": "ceiling {{ ceiling }}",
+      "roi": "Mitigation cost is {{ pct }}% of your potential exposure.",
+      "currency_format": "€{{ amount }}",
+      "thousands_separator": ",",
+      "decimal_separator": "."
     }
   }
 }

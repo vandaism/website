@@ -238,6 +238,7 @@
     "store_owner_link_html": "Bist du der Shop-Inhaber? <a href=\"{{ link }}\">Hier einloggen</a>",
     "shipping_discount_error": "Versandrabatte werden beim Checkout angezeigt, nachdem die Adresse hinzugefügt wurde",
     "discount_code_error": "Rabattcode kann nicht auf den Warenkorb angewendet werden",
+    "discount_update_error": "Beim Aktualisieren der Rabatte ist ein Fehler aufgetreten. Überprüfen Sie Ihre Verbindung und versuchen Sie es erneut.",
     "recipient_form_send_to": "Senden an",
     "recipient_form_email_label": "E-Mail-Adresse des Empfängers",
     "recipient_form_email_label_my_email": "Meine E-Mail-Adresse",
@@ -347,6 +348,17 @@
       "post": "Kommentar posten",
       "success_moderated": "Kommentar gepostet, Moderation ausstehend",
       "success": "Kommentar gepostet"
+    }
+  },
+  "focusable": {
+    "calculator": {
+      "hybrid_hint": "Zum Anpassen ziehen oder den Wert direkt bearbeiten.",
+      "fine_sub": "{{ pct }} % des Umsatzes · Obergrenze {{ ceiling }} %",
+      "penalty_sub": "Obergrenze {{ ceiling }}",
+      "roi": "Die Kosten der Risikominderung betragen {{ pct }} % Ihrer potenziellen Risikoexposition.",
+      "currency_format": "{{ amount }} €",
+      "thousands_separator": ".",
+      "decimal_separator": ","
     }
   }
 }

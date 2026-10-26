@@ -235,6 +235,7 @@
     },
     "shipping_policy": "A fizetéskor kiszámított szállítási költség.",
     "discount_code_error": "A kedvezménykód nem érvényesíthető a kosaradon",
+    "discount_update_error": "Something went wrong while updating your discounts. Check your connection and try again.",
     "shipping_discount_error": "A szállítási kedvezmények a fizetéskor jelennek meg a cím megadását követően",
     "powered_by": "A bolt szolgáltatója:",
     "store_owner_link_html": "Te vagy az áruház tulajdonosa? <a href=\"{{ link }}\">Jelentkezz be itt</a>",
@@ -347,6 +348,17 @@
       "in_cart": "a kosárban",
       "default_title": "Alapértelmezett cím",
       "sticky_add_to_cart": "Gyors hozzáadás a kosárhoz sáv"
+    }
+  },
+  "focusable": {
+    "calculator": {
+      "hybrid_hint": "Drag to adjust, or edit the value directly.",
+      "fine_sub": "{{ pct }}% of revenue · ceiling {{ ceiling }}%",
+      "penalty_sub": "ceiling {{ ceiling }}",
+      "roi": "Mitigation cost is {{ pct }}% of your potential exposure.",
+      "currency_format": "€{{ amount }}",
+      "thousands_separator": ",",
+      "decimal_separator": "."
     }
   }
 }

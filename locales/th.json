@@ -235,6 +235,7 @@
     },
     "shipping_discount_error": "ส่วนลดค่าจัดส่งจะปรากฏในขั้นตอนชำระเงินหลังจากเพิ่มที่อยู่",
     "discount_code_error": "ไม่สามารถใช้รหัสส่วนลดกับตะกร้าสินค้าของคุณได้",
+    "discount_update_error": "Something went wrong while updating your discounts. Check your connection and try again.",
     "shipping_policy": "คำนวณค่าจัดส่งในขั้นตอนการชำระเงิน",
     "powered_by": "ร้านค้านี้จะได้รับการสนับสนุนจาก",
     "store_owner_link_html": "หากคุณเป็นเจ้าของร้าน <a href=\"{{ link }}\">เข้าสู่ระบบที่นี่</a>",
@@ -347,6 +348,17 @@
       "post": "โพสต์ความคิดเห็น",
       "success_moderated": "ความคิดเห็นถูกโพสต์แล้ว กำลังรอการตรวจสอบ",
       "success": "ความคิดเห็นถูกโพสต์แล้ว"
+    }
+  },
+  "focusable": {
+    "calculator": {
+      "hybrid_hint": "Drag to adjust, or edit the value directly.",
+      "fine_sub": "{{ pct }}% of revenue · ceiling {{ ceiling }}%",
+      "penalty_sub": "ceiling {{ ceiling }}",
+      "roi": "Mitigation cost is {{ pct }}% of your potential exposure.",
+      "currency_format": "€{{ amount }}",
+      "thousands_separator": ",",
+      "decimal_separator": "."
     }
   }
 }

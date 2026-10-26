@@ -1,0 +1,197 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero-compliance",
+      "blocks": {
+        "row_focus": { "type": "report_row", "settings": { "label": "Keyboard focus order", "ticket": "JIRA-482" } },
+        "row_contrast": { "type": "report_row", "settings": { "label": "Cart contrast ratio", "ticket": "JIRA-486" } },
+        "row_labels": { "type": "report_row", "settings": { "label": "Screen-reader labels", "ticket": "JIRA-491" } }
+      },
+      "block_order": ["row_focus", "row_contrast", "row_labels"],
+      "settings": {
+        "badge_text": "EAA & WCAG compliance for e-commerce",
+        "heading": "Secure Your E‑commerce Pipeline.\nProtect Your Conversion Metrics.",
+        "description": "We align European retail storefronts to meet EAA compliance with zero disruption to your current dev cycle. No clunky overlays, no broken design systems — just sprint-ready code.",
+        "primary_label": "Get Async Audit",
+        "primary_note": "€500 · 48h · No calls.",
+        "secondary_label": "Request Briefing",
+        "secondary_note": "15 mins · E-commerce compliance",
+        "report_id": "REPORT · FCS-1042",
+        "report_pill": "EAA Verified",
+        "report_title": "Checkout Accessibility Report",
+        "report_subtitle": "Product Search · Cart · Checkout",
+        "summary_label": "Issues resolved",
+        "summary_value": "14 / 14",
+        "padding-block-start": 88,
+        "padding-block-end": 96
+      }
+    },
+    "trust": {
+      "type": "trust-band",
+      "blocks": {
+        "logo_shopify": { "type": "logo", "settings": { "label": "Shopify" } },
+        "logo_shopify_plus": { "type": "logo", "settings": { "label": "Shopify Plus" } },
+        "logo_react": { "type": "logo", "settings": { "label": "React" } },
+        "logo_next": { "type": "logo", "settings": { "label": "Next.js" } },
+        "logo_stripe": { "type": "logo", "settings": { "label": "Stripe" } }
+      },
+      "block_order": ["logo_shopify", "logo_shopify_plus", "logo_react", "logo_next", "logo_stripe"],
+      "settings": {
+        "heading": "Engineered for Modern E-commerce Stacks",
+        "padding-block-start": 56,
+        "padding-block-end": 56
+      }
+    },
+    "market": {
+      "type": "market-reality",
+      "blocks": {
+        "stat_law": {
+          "type": "stat",
+          "settings": {
+            "value": "Ley 11/2023",
+            "title": "Market Withdrawal Power",
+            "body": "Spanish regulators can legally mandate the immediate suspension or complete withdrawal of non-compliant digital services."
+          }
+        },
+        "stat_fine": {
+          "type": "stat",
+          "settings": {
+            "value": "€1,000,000",
+            "title": "Regulatory Enforcement",
+            "body": "National authorities cap administrative penalties at this ceiling for severe EAA infractions."
+          }
+        },
+        "stat_abandon": {
+          "type": "stat",
+          "settings": {
+            "value": "15%",
+            "title": "Instant Cart Abandonment",
+            "body": "This segment of the EU market relies on accessible interfaces. A broken checkout loop equals permanently lost revenue."
+          }
+        }
+      },
+      "block_order": ["stat_law", "stat_fine", "stat_abandon"],
+      "settings": {
+        "eyebrow": "// Market Reality",
+        "heading": "The EAA Grace Period Has Ended",
+        "lede": "The EAA is now an active law. Under Directive 2019/882, if your storefront isn't verified, your revenue is exposed to immediate legal and audit risks.",
+        "surface": "tint",
+        "padding-block-start": 88,
+        "padding-block-end": 88
+      }
+    },
+    "calculator": {
+      "type": "risk-calculator",
+      "blocks": {
+        "posture_none": { "type": "posture", "settings": { "short_label": "None", "label": "None / No Statement", "discount": 0 } },
+        "posture_draft": { "type": "posture", "settings": { "short_label": "Draft Statement", "label": "Draft Statement Published", "discount": 15 } },
+        "posture_self": { "type": "posture", "settings": { "short_label": "Self-Assessed", "label": "WCAG Self-Assessment", "discount": 35 } },
+        "posture_audit": { "type": "posture", "settings": { "short_label": "Active Audit", "label": "Active WCAG Audit", "discount": 55 } }
+      },
+      "block_order": ["posture_none", "posture_draft", "posture_self", "posture_audit"],
+      "settings": {
+        "eyebrow": "// Financial Impact",
+        "heading": "EAA Risk Exposure Assessment",
+        "lede": "Model your exposure across both enforcement ceilings above — adjust your annual EU revenue and platform complexity to see the estimate update.",
+        "revenue_label": "Annual EU Revenue",
+        "revenue_min": 500000,
+        "revenue_max": 50000000,
+        "revenue_step": 500000,
+        "revenue_default": 5000000,
+        "pages_label": "Platform Complexity",
+        "pages_unit": "pages",
+        "pages_min": 5,
+        "pages_max": 300,
+        "pages_step": 5,
+        "pages_default": 60,
+        "markets_label": "EU Jurisdictions",
+        "markets_unit": "markets",
+        "markets_min": 1,
+        "markets_max": 27,
+        "markets_step": 1,
+        "markets_default": 3,
+        "posture_label": "Compliance Posture",
+        "fine_pct_min": 1,
+        "fine_pct_max": 5,
+        "penalty_floor": 50000,
+        "penalty_ceiling": 1000000,
+        "cross_border_max": 50,
+        "mitigation_cost": 500,
+        "fine_label": "Potential Fine · % of Turnover",
+        "penalty_label": "Administrative Penalty Estimate",
+        "show_roi": true,
+        "cta_label": "Mitigate this risk for €500",
+        "cta_note": "48h · No calls.",
+        "padding-block-start": 88,
+        "padding-block-end": 88
+      }
+    },
+    "authority": {
+      "type": "authority-teardowns",
+      "blocks": {
+        "talk_android": { "type": "talk", "settings": { "title": "Android Accessibility: Do or Do", "event": "DevFest Berlin 2023", "link_label": "Watch the talk" } },
+        "talk_fix": { "type": "talk", "settings": { "title": "There is always a way to fix Accessibility", "event": "EpicHey! Conference 2024", "link_label": "Watch the talk" } },
+        "talk_testing": { "type": "talk", "settings": { "title": "a11y Testing Is Broken: How Lighthouse and Axe Fail in Real Projects", "event": "JSNation 2025", "link_label": "Read the keynotes" } }
+      },
+      "block_order": ["talk_android", "talk_fix", "talk_testing"],
+      "settings": {
+        "eyebrow": "// Expertise in Action",
+        "heading": "Industry Talks & Keynotes",
+        "lede": "Watch our founders share field-tested accessibility insights at major European tech summits.",
+        "padding-block-start": 88,
+        "padding-block-end": 88
+      }
+    },
+    "manifesto": {
+      "type": "manifesto",
+      "blocks": {
+        "item_downtime": { "type": "item", "settings": { "title": "Zero Sales Downtime", "body": "Seamless audit integration into active Scrum sprints. Zero code freezes." } },
+        "item_funding": { "type": "item", "settings": { "title": "Up to 100% EU Funding", "body": "Complete documentation setup to reclaim compliance costs via EU subsidies." } },
+        "item_jira": { "type": "item", "settings": { "title": "Jira-Ready Output", "body": "Actionable engineering tasks instead of abstract theoretical reports." } }
+      },
+      "block_order": ["item_downtime", "item_funding", "item_jira"],
+      "settings": {
+        "eyebrow": "// Why Focusable",
+        "heading": "Accessibility is not a box to tick.",
+        "heading_badge": "It's the engineering standard we deliver",
+        "primary_label": "Get Async Audit",
+        "primary_note": "€500 · 48h · No calls.",
+        "secondary_label": "Request Briefing",
+        "secondary_note": "15 mins · E-commerce compliance",
+        "padding-block-start": 180,
+        "padding-block-end": 180
+      }
+    },
+    "workflow": {
+      "type": "workflow-timeline",
+      "blocks": {
+        "step_kickoff": { "type": "step", "settings": { "title": "15-Minute Kickoff", "body": "We align on target portals, technical access, and compliance goals." } },
+        "step_audit": { "type": "step", "settings": { "title": "3-Day Technical Audit", "body": "We execute automated, manual, and assistive-technology scans across your codebase." } },
+        "step_delivery": { "type": "step", "settings": { "title": "Artifact Delivery", "body": "We deliver your completed compliance files and Jira-ready tickets.", "tag": "Review call optional · max 1 hour" } },
+        "step_verify": { "type": "step", "settings": { "title": "24-Hour Verification", "body": "After your team applies the fixes, we run a final validation scan to certify the portal.", "tag": "Optional" } }
+      },
+      "block_order": ["step_kickoff", "step_audit", "step_delivery", "step_verify"],
+      "settings": {
+        "eyebrow": "// Workflow & Delivery",
+        "heading": "How We Work",
+        "lede": "We engineer conversion-first compliance, transitioning your checkout infrastructure from vulnerability to verified code.",
+        "surface": "tint",
+        "padding-block-start": 88,
+        "padding-block-end": 88
+      }
+    },
+    "precta": {
+      "type": "pre-footer-cta",
+      "settings": {
+        "eyebrow": "// Final Check",
+        "heading": "Secure Your Checkout. Protect Your Revenue.",
+        "lede": "Get a sprint-ready accessibility audit tailored for European e-commerce. Zero disruption to your dev cycle.",
+        "primary_label": "Get Async Audit",
+        "primary_note": "€500 · 48h · No calls. Just Jira tickets.",
+        "padding-block-start": 128,
+        "padding-block-end": 128
+      }
+    }
+  },
+  "order": ["hero", "trust", "market", "calculator", "authority", "manifesto", "workflow", "precta"]
+}

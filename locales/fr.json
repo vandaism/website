@@ -242,6 +242,7 @@
     "store_owner_link_html": "Êtes-vous le propriétaire de la boutique ? <a href=\"{{ link }}\">Connectez-vous ici</a>",
     "shipping_discount_error": "Les réductions sur l’expédition sont affichées lors du paiement après avoir ajouté une adresse",
     "discount_code_error": "Le code de réduction ne peut pas être appliqué à votre panier",
+    "discount_update_error": "Une erreur est survenue lors de la mise à jour des réductions. Vérifiez votre connexion et réessayez.",
     "discount": "Réduction",
     "recipient_form_send_to": "Envoyer à",
     "recipient_form_email_label": "E-mail du destinataire",
@@ -354,6 +355,17 @@
       "post": "Publier le commentaire",
       "success_moderated": "Commentaire publié, en attente de modération",
       "success": "Commentaire publié"
+    }
+  },
+  "focusable": {
+    "calculator": {
+      "hybrid_hint": "Faites glisser pour ajuster, ou modifiez directement la valeur.",
+      "fine_sub": "{{ pct }} % du chiffre d'affaires · plafond {{ ceiling }} %",
+      "penalty_sub": "plafond {{ ceiling }}",
+      "roi": "Le coût de la mise en conformité représente {{ pct }} % de votre exposition potentielle.",
+      "currency_format": "{{ amount }} €",
+      "thousands_separator": " ",
+      "decimal_separator": ","
     }
   }
 }

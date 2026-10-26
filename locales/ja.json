@@ -227,6 +227,7 @@
     "store_owner_link_html": "あなたはストアオーナーですか?<a href=\"{{ link }}\">こちらからログインする</a>",
     "shipping_discount_error": "配送料の割引は、住所を追加した後のチェックアウト時に表示されます",
     "discount_code_error": "クーポンコードはあなたのカートには適用できません。",
+    "discount_update_error": "Something went wrong while updating your discounts. Check your connection and try again.",
     "inventory_low_stock": "低在庫",
     "inventory_in_stock": "在庫あり",
     "inventory_out_of_stock": "在庫切れ",
@@ -347,6 +348,17 @@
       "post": "コメントを投稿する",
       "success_moderated": "コメントを投稿しました。承認待ちです",
       "success": "コメントを投稿しました"
+    }
+  },
+  "focusable": {
+    "calculator": {
+      "hybrid_hint": "Drag to adjust, or edit the value directly.",
+      "fine_sub": "{{ pct }}% of revenue · ceiling {{ ceiling }}%",
+      "penalty_sub": "ceiling {{ ceiling }}",
+      "roi": "Mitigation cost is {{ pct }}% of your potential exposure.",
+      "currency_format": "€{{ amount }}",
+      "thousands_separator": ",",
+      "decimal_separator": "."
     }
   }
 }

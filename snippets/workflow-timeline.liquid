@@ -1,0 +1,161 @@
+{%- doc -%}
+  Numbered process timeline: horizontal with a connecting rule on desktop,
+  stacked rows on mobile. Step count comes from the `step` blocks; the column
+  count and the rule's inset follow it via `--fc-steps`.
+
+  @param {object} section - The workflow-timeline section (settings + blocks)
+{%- enddoc -%}
+
+{%- liquid
+  assign s = section.settings
+  assign heading_id = 'fc-workflow-heading-' | append: section.id
+  assign steps = section.blocks.size | at_least: 1
+-%}
+
+<section
+  class="fc-section fc-section--{{ s.surface }} fc-workflow"
+  aria-labelledby="{{ heading_id }}"
+  style="{% render 'spacing-style', settings: s %}"
+>
+  <div class="fc-container">
+    {%- render 'focusable-section-header', eyebrow: s.eyebrow, heading: s.heading, heading_id: heading_id, lede: s.lede -%}
+
+    {%- if section.blocks.size > 0 -%}
+      <div class="fc-workflow__timeline" style="--fc-steps: {{ steps }};">
+        <div class="fc-workflow__line" aria-hidden="true"></div>
+        <ol class="fc-workflow__steps">
+          {%- for block in section.blocks -%}
+            <li class="fc-workflow__step" {{ block.shopify_attributes }}>
+              <span class="fc-workflow__node" aria-hidden="true">{{ forloop.index | prepend: '0' | slice: -2, 2 }}</span>
+              <div class="fc-workflow__content">
+                <h3 class="fc-workflow__title">{{ block.settings.title | escape }}</h3>
+                {%- if block.settings.body != blank -%}
+                  <p class="fc-workflow__body">{{ block.settings.body | escape }}</p>
+                {%- endif -%}
+                {%- if block.settings.tag != blank -%}
+                  <span class="fc-workflow__tag">{{ block.settings.tag | escape }}</span>
+                {%- endif -%}
+              </div>
+            </li>
+          {%- endfor -%}
+        </ol>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% stylesheet %}
+  .fc-workflow {
+    padding-block: var(--padding-block-start, 88px) var(--padding-block-end, 88px);
+  }
+
+  .fc-workflow__timeline {
+    --fc-steps: 4;
+    position: relative;
+    margin-top: 56px;
+  }
+
+  /* Rule spans from the first node centre to the last: inset by half a column */
+  .fc-workflow__line {
+    position: absolute;
+    top: 19px;
+    left: calc(100% / var(--fc-steps) / 2);
+    right: calc(100% / var(--fc-steps) / 2);
+    height: 1px;
+    background: var(--fc-slate-300);
+  }
+
+  .fc-workflow__steps {
+    position: relative;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(var(--fc-steps), 1fr);
+    gap: 32px;
+  }
+
+  .fc-workflow__step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .fc-workflow__node {
+    position: relative;
+    z-index: 1;
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 999px;
+    border: 1px solid var(--fc-slate-300);
+    background: var(--fc-slate-50);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--fc-font-mono);
+    font-size: 13px;
+    color: var(--fc-slate-700);
+  }
+
+  .fc-workflow__content {
+    margin-top: 20px;
+  }
+
+  .fc-workflow__title {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: normal;
+    color: var(--fc-slate-900);
+  }
+
+  .fc-workflow__body {
+    margin: 8px auto 0;
+    font-size: 13.5px;
+    color: var(--fc-slate-600);
+    line-height: 1.65;
+    max-width: 22ch;
+  }
+
+  .fc-workflow__tag {
+    display: inline-block;
+    margin-top: 10px;
+    border: 1px solid var(--fc-slate-300);
+    border-radius: 999px;
+    padding: 2px 10px;
+    font-family: var(--fc-font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--fc-slate-500);
+  }
+
+  @media (max-width: 960px) {
+    .fc-workflow__line {
+      display: none;
+    }
+
+    .fc-workflow__steps {
+      grid-template-columns: 1fr;
+      gap: 28px;
+    }
+
+    .fc-workflow__step {
+      flex-direction: row;
+      align-items: flex-start;
+      text-align: left;
+      gap: 16px;
+    }
+
+    .fc-workflow__content {
+      margin-top: 0;
+    }
+
+    .fc-workflow__body {
+      max-width: none;
+      margin-inline: 0;
+    }
+  }
+{% endstylesheet %}

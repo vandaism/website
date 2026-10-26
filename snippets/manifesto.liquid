@@ -1,0 +1,147 @@
+{%- doc -%}
+  "Why Focusable" split layout without card chrome: question + emerald badge
+  and CTA pair on the left, a column of `item` blocks on the right.
+
+  @param {object} section - The manifesto section (settings + blocks)
+{%- enddoc -%}
+
+{%- liquid
+  assign s = section.settings
+  assign heading_id = 'fc-manifesto-heading-' | append: section.id
+-%}
+
+<section
+  class="fc-section fc-manifesto"
+  aria-labelledby="{{ heading_id }}"
+  style="{% render 'spacing-style', settings: s %}"
+>
+  <div class="fc-container">
+    <div class="fc-manifesto__grid">
+      <div class="fc-manifesto__lead">
+        <div class="fc-manifesto__statement">
+          {%- if s.eyebrow != blank -%}
+            <p class="fc-eyebrow fc-manifesto__eyebrow">{{ s.eyebrow | escape }}</p>
+          {%- endif -%}
+          <h2 class="fc-manifesto__question" id="{{ heading_id }}">
+            {{ s.heading | escape }}
+            {%- if s.heading_badge != blank %}
+              <span class="fc-manifesto__badge">
+                {%- render 'focusable-icon', icon: 'check', px: 18 -%}
+                {{ s.heading_badge | escape }}
+              </span>
+            {%- endif -%}
+          </h2>
+        </div>
+
+        {%- render 'focusable-cta-pair', settings: s, class: 'fc-manifesto__cta' -%}
+      </div>
+
+      {%- if section.blocks.size > 0 -%}
+        <ul class="fc-manifesto__answers" role="list">
+          {%- for block in section.blocks -%}
+            <li class="fc-manifesto__item" {{ block.shopify_attributes }}>
+              <h3 class="fc-manifesto__item-title">{{ block.settings.title | escape }}</h3>
+              {%- if block.settings.body != blank -%}
+                <p class="fc-manifesto__item-body">{{ block.settings.body | escape }}</p>
+              {%- endif -%}
+            </li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .fc-manifesto {
+    padding-block: var(--padding-block-start, 180px) var(--padding-block-end, 180px);
+  }
+
+  .fc-manifesto__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 100px;
+    align-items: stretch;
+  }
+
+  .fc-manifesto__lead {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+  }
+
+  .fc-manifesto__eyebrow {
+    display: block;
+    line-height: 16px;
+    margin-bottom: 16px;
+  }
+
+  .fc-manifesto__question {
+    margin: 0;
+    font-size: 2.25rem;
+    line-height: 1.35;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--fc-slate-900);
+  }
+
+  .fc-manifesto__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    vertical-align: middle;
+    background: var(--fc-emerald-50);
+    color: var(--fc-emerald-700);
+    border-radius: 999px;
+    padding: 8px 20px;
+    margin: 4px 0;
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+
+  .fc-manifesto__cta {
+    margin-top: 40px;
+  }
+
+  .fc-manifesto__answers {
+    list-style: none;
+    margin: 0;
+    padding: 32px 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .fc-manifesto__item-title {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--fc-slate-900);
+  }
+
+  .fc-manifesto__item-body {
+    margin: 8px 0 0;
+    font-size: 13.5px;
+    color: var(--fc-slate-600);
+    line-height: 1.65;
+    max-width: 46ch;
+  }
+
+  @media (max-width: 960px) {
+    .fc-manifesto__grid {
+      grid-template-columns: 1fr;
+      gap: 56px;
+    }
+
+    .fc-manifesto__answers {
+      padding-top: 0;
+    }
+
+    .fc-manifesto__badge {
+      font-size: 1.15rem;
+      padding: 8px 18px;
+    }
+  }
+{% endstylesheet %}

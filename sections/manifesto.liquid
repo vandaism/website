@@ -1,0 +1,127 @@
+{% render 'focusable-styles' %}
+{% render 'manifesto', section: section %}
+
+{% schema %}
+{
+  "name": "t:focusable.manifesto.name",
+  "class": "fc-section-wrapper",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "t:focusable.common.eyebrow",
+      "default": "// Why Focusable"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "t:focusable.common.heading",
+      "default": "Accessibility is not a box to tick."
+    },
+    {
+      "type": "text",
+      "id": "heading_badge",
+      "label": "t:focusable.manifesto.heading_badge",
+      "info": "t:focusable.manifesto.heading_badge_info",
+      "default": "It's the engineering standard we deliver"
+    },
+    {
+      "type": "header",
+      "content": "t:focusable.common.cta_header"
+    },
+    {
+      "type": "text",
+      "id": "primary_label",
+      "label": "t:focusable.common.primary_label",
+      "default": "Get Async Audit"
+    },
+    {
+      "type": "url",
+      "id": "primary_url",
+      "label": "t:focusable.common.primary_url"
+    },
+    {
+      "type": "text",
+      "id": "primary_note",
+      "label": "t:focusable.common.primary_note",
+      "default": "€500 · 48h · No calls."
+    },
+    {
+      "type": "text",
+      "id": "secondary_label",
+      "label": "t:focusable.common.secondary_label",
+      "default": "Request Briefing"
+    },
+    {
+      "type": "url",
+      "id": "secondary_url",
+      "label": "t:focusable.common.secondary_url"
+    },
+    {
+      "type": "text",
+      "id": "secondary_note",
+      "label": "t:focusable.common.secondary_note",
+      "default": "15 mins · E-commerce compliance"
+    },
+    {
+      "type": "header",
+      "content": "t:content.padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "t:settings.top",
+      "min": 0,
+      "max": 240,
+      "step": 4,
+      "unit": "px",
+      "default": 180
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "t:settings.bottom",
+      "min": 0,
+      "max": 240,
+      "step": 4,
+      "unit": "px",
+      "default": 180
+    }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "t:focusable.manifesto.item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "t:focusable.common.title",
+          "default": "Jira-Ready Output"
+        },
+        {
+          "type": "textarea",
+          "id": "body",
+          "label": "t:focusable.common.body",
+          "default": "Actionable engineering tasks instead of abstract theoretical reports."
+        }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "t:focusable.manifesto.name",
+      "category": "t:focusable.common.category",
+      "blocks": [
+        { "type": "item", "settings": { "title": "Zero Sales Downtime", "body": "Seamless audit integration into active Scrum sprints. Zero code freezes." } },
+        { "type": "item", "settings": { "title": "Up to 100% EU Funding", "body": "Complete documentation setup to reclaim compliance costs via EU subsidies." } },
+        { "type": "item", "settings": { "title": "Jira-Ready Output", "body": "Actionable engineering tasks instead of abstract theoretical reports." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -31,7 +31,9 @@
       "@theme/component-quantity-selector": "{{ 'component-quantity-selector.js' | asset_url }}",
       "@theme/comparison-slider": "{{ 'comparison-slider.js' | asset_url }}",
       "@theme/sticky-add-to-cart": "{{ 'sticky-add-to-cart.js' | asset_url }}",
-      "@theme/fly-to-cart": "{{ 'fly-to-cart.js' | asset_url }}"
+      "@theme/fly-to-cart": "{{ 'fly-to-cart.js' | asset_url }}",
+      "@theme/risk-calculator": "{{ 'risk-calculator.js' | asset_url }}",
+      "@theme/storage": "{{ 'storage.js' | asset_url }}"
     }
   }
 </script>
@@ -97,6 +99,11 @@
 <link
   rel="modulepreload"
   href="{{ 'recently-viewed-products.js' | asset_url }}"
+  fetchpriority="low"
+>
+<link
+  rel="modulepreload"
+  href="{{ 'storage.js' | asset_url }}"
   fetchpriority="low"
 >
 <link

@@ -234,6 +234,7 @@
     "store_owner_link_html": "您是商店擁有人嗎？<a href=\"{{ link }}\">請在此登入</a>",
     "shipping_discount_error": "新增地址後，結帳時將顯示運費折扣",
     "discount_code_error": "折扣代碼無法套用至您的購物車",
+    "discount_update_error": "Something went wrong while updating your discounts. Check your connection and try again.",
     "page_placeholder_title": "頁面標題",
     "page_placeholder_content": "選取一個頁面，即可顯示其內容。",
     "placeholder_image": "佔位符圖片",
@@ -347,6 +348,17 @@
       "in_cart": "在購物車中",
       "default_title": "預設標題",
       "sticky_add_to_cart": "快速加入購物車列"
+    }
+  },
+  "focusable": {
+    "calculator": {
+      "hybrid_hint": "Drag to adjust, or edit the value directly.",
+      "fine_sub": "{{ pct }}% of revenue · ceiling {{ ceiling }}%",
+      "penalty_sub": "ceiling {{ ceiling }}",
+      "roi": "Mitigation cost is {{ pct }}% of your potential exposure.",
+      "currency_format": "€{{ amount }}",
+      "thousands_separator": ",",
+      "decimal_separator": "."
     }
   }
 }
